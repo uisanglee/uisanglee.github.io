@@ -6,7 +6,7 @@
         <button><span class="navicon"></span></button>
         <ul class="visible-links">
           <li class="masthead__menu-item masthead__menu-item--lg persist">
-            <a href="{{ base_path }}/#home" data-section-link="home" aria-label="Uisang Lee — Home">{{ site.title }}</a>
+            <a class="brand-roulette-link" href="{{ base_path }}/#home" data-section-link="home" aria-label="Uisang Lee — Home"><span class="brand-roulette" aria-hidden="true">{{ site.title }}</span></a>
           </li>
           {% for link in site.data.navigation.main %}
             {% if link.url contains 'http' %}

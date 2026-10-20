@@ -2,8 +2,11 @@
   "use strict";
 
   const sectionIds = ["home", "publications", "cv", "contact"];
+  const brandLabels = { home: "Uisang Lee", publications: "📚", cv: "📑", contact: "📞" };
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let scrollAnimationId = 0;
+  let activeSectionId = null;
+  let brandSwapTimer = null;
 
   function enforceMobileNavigation() {
     if (!window.matchMedia("(max-width: 760px)").matches) {
@@ -27,8 +30,32 @@
   }
 
   function setActiveSection(id) {
+    if (!sectionIds.includes(id) || id === activeSectionId) return;
+    const previousSectionId = activeSectionId;
+    activeSectionId = id;
     document.querySelectorAll(".masthead__menu-item").forEach((item) => item.classList.remove("selected"));
-    document.querySelector(`a[data-section-link="${id}"]`)?.closest(".masthead__menu-item")?.classList.add("selected");
+    document.querySelector(`.masthead__menu-item:not(.masthead__menu-item--lg) a[data-section-link="${id}"]`)?.closest(".masthead__menu-item")?.classList.add("selected");
+
+    const brand = document.querySelector(".brand-roulette");
+    const brandLink = document.querySelector(".brand-roulette-link");
+    if (!brand || !brandLink) return;
+    brandLink.setAttribute("aria-label", `${brandLabels[id]} — ${id}`);
+    if (previousSectionId === null && brand.textContent.trim() === brandLabels[id]) return;
+
+    window.clearTimeout(brandSwapTimer);
+    if (reduceMotion.matches) {
+      brand.textContent = brandLabels[id];
+      return;
+    }
+
+    brand.classList.remove("is-rolling-in");
+    brand.classList.add("is-rolling-out");
+    brandSwapTimer = window.setTimeout(() => {
+      brand.textContent = brandLabels[id];
+      brand.classList.remove("is-rolling-out");
+      brand.classList.add("is-rolling-in");
+      brand.addEventListener("animationend", () => brand.classList.remove("is-rolling-in"), { once: true });
+    }, 190);
   }
 
   function scrollToSection(id, updateHistory) {
