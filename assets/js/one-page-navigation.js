@@ -8,6 +8,16 @@
   let activeSectionId = null;
   let brandSwapTimer = null;
 
+  function getDocumentTop(element) {
+    let top = 0;
+    let current = element;
+    while (current) {
+      top += current.offsetTop || 0;
+      current = current.offsetParent;
+    }
+    return top;
+  }
+
   function enforceMobileNavigation() {
     if (!window.matchMedia("(max-width: 760px)").matches) {
       document.body.style.paddingTop = "";
@@ -63,8 +73,12 @@
     if (!section) return;
 
     const mastheadHeight = document.querySelector(".masthead")?.offsetHeight || 0;
+    const mobileLayout = window.matchMedia("(max-width: 760px)").matches;
+    const sectionGap = mobileLayout ? 12 : 22;
     const startY = window.scrollY;
-    const targetY = Math.max(0, section.getBoundingClientRect().top + startY - mastheadHeight - 20);
+    const targetY = id === "home"
+      ? 0
+      : Math.max(0, getDocumentTop(section) - mastheadHeight - sectionGap);
     const distance = targetY - startY;
     const animationId = ++scrollAnimationId;
 
@@ -107,7 +121,7 @@
       mobileMotion = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
       elements.forEach((element) => element.style.removeProperty("--scroll-transform"));
       ranges = elements.map((element) => {
-        const top = element.getBoundingClientRect().top + window.scrollY;
+        const top = getDocumentTop(element);
         return {
           element,
           start: top - window.innerHeight * (mobileMotion ? .98 : .9),
@@ -217,6 +231,9 @@
     prepareScrollAnimations();
     const initialId = sectionIds.includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : "home";
     setActiveSection(initialId);
+    if (window.location.hash) {
+      window.requestAnimationFrame(() => scrollToSection(initialId, false));
+    }
   });
   ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
     window.addEventListener(eventName, () => { scrollAnimationId += 1; }, { passive: true });
