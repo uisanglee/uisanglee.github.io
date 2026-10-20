@@ -1,0 +1,16 @@
+---
+layout: archive
+title: "프로젝트"
+permalink: /portfolio/
+author_profile: true
+---
+
+{% include base_path %}
+
+<p>대표 프로젝트를 문제–역할–과정–결과 순서로 소개하세요. 각 프로젝트는 <code>_portfolio</code> 폴더에 Markdown 파일로 추가할 수 있습니다.</p>
+
+
+{% for post in site.portfolio %}
+  {% include archive-single.html %}
+{% endfor %}
+

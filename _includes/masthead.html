@@ -1,0 +1,33 @@
+{% include base_path %}
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist {% if page.url == '/' or page.url == '/index.html' %}selected{% endif %}">
+            <a href="{{ base_path }}/" data-emoji-reset title="Clear today's emoji pile" aria-label="Uisang Lee — clear today's emoji pile">{{ site.title }}</a>
+          </li>
+          {% for link in site.data.navigation.main %}
+            {% if link.url contains 'http' %}
+              {% assign domain = '' %}
+            {% else %}
+              {% assign domain = base_path %}
+            {% endif %}
+            {% assign nav_emoji = '' %}
+            {% case link.title %}
+              {% when 'Home' %}{% assign nav_emoji = '🏠' %}
+              {% when 'Publications' %}{% assign nav_emoji = '📚' %}
+              {% when 'CV' %}{% assign nav_emoji = '📑' %}
+              {% when 'Contact' %}{% assign nav_emoji = '📞' %}
+            {% endcase %}
+            <li class="masthead__menu-item {% if page.url contains link.url and link.url != '/' %}selected{% endif %}">
+              <a href="{{ domain }}{{ link.url }}"{% if nav_emoji != '' %} data-nav-emoji="{{ nav_emoji }}" data-nav-key="{{ link.title | downcase }}"{% endif %}>{% if nav_emoji != '' %}<span class="nav-label-emoji" aria-hidden="true">{{ nav_emoji }}</span>{% endif %}<span>{{ link.title }}</span></a>
+            </li>
+          {% endfor %}
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>

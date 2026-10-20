@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title desc">
+  <title id="title">프로필 이미지 자리표시자</title><desc id="desc">녹색 프로필 이미지 자리표시자</desc>
+  <rect width="400" height="400" rx="200" fill="#e8f1ef"/><circle cx="200" cy="150" r="70" fill="#6b9892"/>
+  <path d="M82 350c18-78 62-118 118-118s100 40 118 118" fill="#235b55"/>
+  <text x="200" y="382" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#18302d">YOUR PHOTO</text>
+</svg>
