@@ -461,6 +461,7 @@ body {
   filter: blur(var(--scroll-blur, 0));
   transform: var(--scroll-transform, none);
   transform-origin: 50% 35%;
+  backface-visibility: hidden;
   will-change: opacity, filter, transform;
 }
 
@@ -530,12 +531,12 @@ body {
   .one-page-section,
   .profile-contact { scroll-margin-top: 6.5rem; }
   .glass-section { border-radius: 24px; }
-  .one-page-section { margin-top: clamp(3rem, 10vh, 5rem); padding: 1.5rem 1.15rem; }
+  .one-page-section { margin-top: clamp(4.5rem, 16vh, 8rem); padding: 1.5rem 1.15rem; }
   .one-page-section > h2 { font-size: 1.7rem; }
   .publication-card { padding: 1.15rem; }
   .publication-card h3 { font-size: 1.05rem; }
   .cv-grid { grid-template-columns: 1fr; gap: 1.7rem; }
-  .profile-contact { margin-top: clamp(3rem, 10vh, 5rem); padding: 1.5rem 1.15rem; }
+  .profile-contact { margin-top: clamp(4.5rem, 16vh, 8rem); padding: 1.5rem 1.15rem; }
 }
 
 /* Typography and permanent light palette */

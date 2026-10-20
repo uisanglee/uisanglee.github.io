@@ -70,23 +70,27 @@
     document.documentElement.classList.add("scroll-motion-ready");
     let ranges = [];
     let ticking = false;
+    let mobileMotion = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
 
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
     const interpolate = (from, to, progress) => from + (to - from) * progress;
     const easeOutCubic = (progress) => 1 - (1 - progress) ** 3;
 
     const measure = () => {
+      mobileMotion = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
       elements.forEach((element) => element.style.removeProperty("--scroll-transform"));
       ranges = elements.map((element) => {
         const top = element.getBoundingClientRect().top + window.scrollY;
         return {
           element,
-          start: top - window.innerHeight * .9,
-          end: top - window.innerHeight * .28,
-          exitStart: top + element.offsetHeight - window.innerHeight * .4,
-          exitEnd: top + element.offsetHeight - window.innerHeight * .08,
+          start: top - window.innerHeight * (mobileMotion ? .98 : .9),
+          end: top - window.innerHeight * (mobileMotion ? .08 : .28),
+          exitStart: top + element.offsetHeight - window.innerHeight * (mobileMotion ? .5 : .4),
+          exitEnd: top + element.offsetHeight - window.innerHeight * (mobileMotion ? .02 : .08),
           currentEnter: null,
-          currentExit: null
+          currentExit: null,
+          enterVelocity: 0,
+          exitVelocity: 0
         };
       });
       render();
@@ -106,19 +110,32 @@
 
         if (range.currentEnter === null) range.currentEnter = targetEnter;
         if (range.currentExit === null) range.currentExit = targetExit;
-        range.currentEnter += (targetEnter - range.currentEnter) * .14;
-        range.currentExit += (targetExit - range.currentExit) * .11;
+        if (mobileMotion) {
+          range.enterVelocity = (range.enterVelocity + (targetEnter - range.currentEnter) * .095) * .8;
+          range.exitVelocity = (range.exitVelocity + (targetExit - range.currentExit) * .085) * .8;
+          range.currentEnter += range.enterVelocity;
+          range.currentExit += range.exitVelocity;
+        } else {
+          range.currentEnter += (targetEnter - range.currentEnter) * .14;
+          range.currentExit += (targetExit - range.currentExit) * .11;
+        }
 
-        if (Math.abs(targetEnter - range.currentEnter) > .001 || Math.abs(targetExit - range.currentExit) > .001) {
+        if (
+          Math.abs(targetEnter - range.currentEnter) > .001 ||
+          Math.abs(targetExit - range.currentExit) > .001 ||
+          Math.abs(range.enterVelocity) > .001 ||
+          Math.abs(range.exitVelocity) > .001
+        ) {
           isSettling = true;
         }
 
-        const enterProgress = range.currentEnter;
-        const exitProgress = range.currentExit;
+        const enterProgress = clamp(range.currentEnter, 0, 1);
+        const exitProgress = clamp(range.currentExit, 0, 1);
         const opacity = interpolate(.08, 1, enterProgress) * interpolate(1, .08, exitProgress);
-        const translateY = interpolate(86, 0, enterProgress) + interpolate(0, -72, exitProgress);
-        const scale = interpolate(.968, 1, enterProgress) - exitProgress * .018;
-        const blur = Math.max(interpolate(12, 0, enterProgress), interpolate(0, 8, exitProgress));
+        const translateY = interpolate(mobileMotion ? 112 : 86, 0, enterProgress) + interpolate(0, mobileMotion ? -88 : -72, exitProgress);
+        const scale = interpolate(mobileMotion ? .95 : .968, 1, enterProgress) - exitProgress * (mobileMotion ? .024 : .018);
+        const maxBlur = mobileMotion ? 5 : 12;
+        const blur = Math.max(interpolate(maxBlur, 0, enterProgress), interpolate(0, mobileMotion ? 4 : 8, exitProgress));
 
         element.style.setProperty("--scroll-opacity", opacity.toFixed(3));
         element.style.setProperty("--scroll-transform", `translate3d(0, ${translateY.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`);
