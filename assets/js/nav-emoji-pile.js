@@ -5,9 +5,9 @@
   const SHOWER_SIZE = 14;
   const MAX_VISIBLE = 140;
   const NAV_DELAY = 420;
-  const GRAVITY = .88;
-  const BALL_RESTITUTION = .66;
-  const FLOOR_RESTITUTION = .64;
+  const GRAVITY = 1.08;
+  const BALL_RESTITUTION = .72;
+  const FLOOR_RESTITUTION = .68;
   const emojiByKey = { home: "🏠", publications: "📚", cv: "📑", contact: "📞" };
 
   const localDay = () => {
@@ -121,7 +121,7 @@
       x: Math.max(radius, Math.min(width - radius, falling ? fallingX : packedX)),
       y: falling ? -radius - (index % 6) * 46 : Math.max(radius, height - radius - row * radius * 1.65),
       vx: falling ? (((seed >>> 12) % 17) - 8) * .16 : 0,
-      vy: falling ? 4.8 + ((seed >>> 16) % 14) * .2 : 0,
+      vy: falling ? 6.6 + ((seed >>> 16) % 14) * .22 : 0,
       angle: ((seed >>> 12) % 45) - 22,
       angularVelocity: (((seed >>> 21) % 13) - 6) * .08,
       mass: radius * radius
@@ -184,7 +184,7 @@
         const tangentX = -normalY;
         const tangentY = normalX;
         const tangentVelocity = relativeX * tangentX + relativeY * tangentY;
-        const frictionImpulse = tangentVelocity * .035;
+        const frictionImpulse = tangentVelocity * .015;
         first.vx += frictionImpulse * tangentX;
         first.vy += frictionImpulse * tangentY;
         second.vx -= frictionImpulse * tangentX;
