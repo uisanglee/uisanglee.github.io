@@ -95,15 +95,32 @@
 
 .glass-section {
   position: relative;
-  border: 1px solid rgba(255, 255, 255, .78);
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .7);
   border-radius: 34px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, .82), rgba(255, 255, 255, .62));
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .54), rgba(255, 255, 255, .2)),
+    rgba(255, 255, 255, .14);
   box-shadow:
-    0 26px 70px rgba(34, 63, 106, .11),
-    0 3px 12px rgba(34, 63, 106, .045),
-    inset 0 1px 0 rgba(255, 255, 255, .95);
-  -webkit-backdrop-filter: blur(24px) saturate(1.3);
-  backdrop-filter: blur(24px) saturate(1.3);
+    0 28px 70px rgba(31, 41, 55, .15),
+    0 4px 14px rgba(31, 41, 55, .07),
+    inset 0 1px 0 rgba(255, 255, 255, .92),
+    inset 0 -1px 0 rgba(255, 255, 255, .28);
+  -webkit-backdrop-filter: blur(30px) saturate(1.22) brightness(1.06);
+  backdrop-filter: blur(30px) saturate(1.22) brightness(1.06);
+}
+
+.glass-section::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, .46) 0%, rgba(255, 255, 255, .08) 34%, transparent 55%),
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, .72), transparent 32%);
+  content: "";
+  pointer-events: none;
 }
 
 .home-section { padding: clamp(2rem, 4vw, 4rem); }
@@ -393,10 +410,7 @@
 /* Layered background and translucent section planes. */
 body {
   position: relative;
-  background:
-    radial-gradient(circle at 12% 10%, rgba(137, 180, 255, .2), transparent 32rem),
-    radial-gradient(circle at 88% 38%, rgba(192, 168, 255, .16), transparent 34rem),
-    linear-gradient(180deg, #f8fbff 0%, #f4f7fb 52%, #fbfcfe 100%) !important;
+  background: #dcdcdc !important;
   background-attachment: fixed !important;
 }
 
@@ -474,10 +488,12 @@ body {
 .publication-card {
   margin-top: 1.5rem;
   padding: 1.6rem 1.75rem;
-  border: 1px solid rgba(255, 255, 255, .86);
+  border: 1px solid rgba(255, 255, 255, .68);
   border-radius: 22px;
-  background: rgba(255, 255, 255, .58);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .88), 0 10px 28px rgba(50, 74, 112, .06);
+  background: rgba(255, 255, 255, .3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 10px 28px rgba(31, 41, 55, .08);
+  -webkit-backdrop-filter: blur(16px) brightness(1.05);
+  backdrop-filter: blur(16px) brightness(1.05);
 }
 
 .publication-card h3 {
@@ -545,7 +561,7 @@ html[data-theme="dark"] {
 }
 
 html {
-  background: #f4f7fb !important;
+  background: #dcdcdc !important;
 }
 
 body {
