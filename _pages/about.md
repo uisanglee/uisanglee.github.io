@@ -9,7 +9,7 @@ redirect_from:
 
 <div class="profile-shell">
   <aside class="profile-identity" aria-label="Profile">
-    <img class="profile-portrait" src="{{ '/images/uisang-lee-original.jpg' | relative_url }}" alt="Portrait of Uisang Lee beneath cherry blossoms at night">
+    <img class="profile-portrait" src="{{ '/images/uisang-lee-profile-2026.jpg' | relative_url }}" alt="Portrait of Uisang Lee">
     <h1>Uisang Lee</h1>
     <p class="profile-role">Integrated M.S./Ph.D. Student</p>
     <a class="profile-affiliation" href="https://ece.snu.ac.kr/" target="_blank" rel="noopener">Seoul National University</a>
