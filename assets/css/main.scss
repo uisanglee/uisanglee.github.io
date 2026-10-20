@@ -431,7 +431,11 @@
   transform-origin: center;
 }
 
-a[data-emoji-reset] { cursor: pointer; }
+a[data-emoji-reset],
+.masthead__menu-item--lg.selected a[data-emoji-reset] {
+  cursor: pointer;
+  pointer-events: auto;
+}
 
 /* Frosted content plane: the pile remains visible around and through it. */
 body { position: relative; }
