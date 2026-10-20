@@ -63,9 +63,10 @@
     brandSwapTimer = window.setTimeout(() => {
       brand.textContent = brandLabels[id];
       brand.classList.remove("is-rolling-out");
+      void brand.offsetWidth;
       brand.classList.add("is-rolling-in");
       brand.addEventListener("animationend", () => brand.classList.remove("is-rolling-in"), { once: true });
-    }, 190);
+    }, 220);
   }
 
   function scrollToSection(id, updateHistory) {

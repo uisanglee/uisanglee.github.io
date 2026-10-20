@@ -73,32 +73,40 @@
 
 .brand-roulette-link {
   display: inline-grid !important;
+  align-items: center;
+  height: 1.65em;
   min-width: 8.4rem;
+  overflow: hidden;
   perspective: 520px;
 }
 
 .brand-roulette {
   display: inline-block;
-  transform-origin: 50% 50%;
+  line-height: 1.25;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
   white-space: nowrap;
   will-change: transform, opacity, filter;
 }
 
 .brand-roulette.is-rolling-out {
-  animation: brand-roll-out .2s cubic-bezier(.55, .06, .68, .19) both;
+  animation: brand-roll-out .24s cubic-bezier(.55, .06, .68, .19) both;
 }
 
 .brand-roulette.is-rolling-in {
-  animation: brand-roll-in .42s cubic-bezier(.16, 1, .3, 1) both;
+  transform-origin: 50% 0;
+  animation: brand-roll-in .48s cubic-bezier(.16, 1, .3, 1) both;
 }
 
 @keyframes brand-roll-out {
-  to { opacity: 0; filter: blur(5px); transform: rotateX(90deg) scale(.72); }
+  45% { opacity: .75; transform: translateY(24%) rotateX(-28deg) scale(.96); }
+  to { opacity: 0; filter: blur(3px); transform: translateY(115%) rotateX(-86deg) scale(.84); }
 }
 
 @keyframes brand-roll-in {
-  from { opacity: 0; filter: blur(5px); transform: rotateX(-100deg) scale(.72); }
-  72% { opacity: 1; filter: blur(0); transform: rotateX(9deg) scale(1.08); }
+  from { opacity: 0; filter: blur(3px); transform: translateY(-115%) rotateX(86deg) scale(.84); }
+  68% { opacity: 1; filter: blur(0); transform: translateY(7%) rotateX(-9deg) scale(1.04); }
   to { opacity: 1; filter: blur(0); transform: rotateX(0) scale(1); }
 }
 
