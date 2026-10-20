@@ -275,7 +275,7 @@
 .text-link { display: inline-block; margin-top: .65rem; font-weight: 700; }
 
 .profile-contact {
-  margin-top: 3rem;
+  margin-top: clamp(5rem, 14vh, 10rem);
   padding: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -461,7 +461,7 @@ body {
 }
 
 .one-page-section {
-  margin-top: 3rem;
+  margin-top: clamp(5rem, 14vh, 10rem);
   padding: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -514,12 +514,12 @@ body {
   .one-page-section,
   .profile-contact { scroll-margin-top: 6.5rem; }
   .glass-section { border-radius: 24px; }
-  .one-page-section { margin-top: 1.4rem; padding: 1.5rem 1.15rem; }
+  .one-page-section { margin-top: clamp(3rem, 10vh, 5rem); padding: 1.5rem 1.15rem; }
   .one-page-section > h2 { font-size: 1.7rem; }
   .publication-card { padding: 1.15rem; }
   .publication-card h3 { font-size: 1.05rem; }
   .cv-grid { grid-template-columns: 1fr; gap: 1.7rem; }
-  .profile-contact { margin-top: 1.4rem; padding: 1.5rem 1.15rem; }
+  .profile-contact { margin-top: clamp(3rem, 10vh, 5rem); padding: 1.5rem 1.15rem; }
 }
 
 /* Typography and permanent light palette */

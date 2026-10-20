@@ -84,7 +84,9 @@
           start: top - window.innerHeight * .9,
           end: top - window.innerHeight * .28,
           exitStart: top + element.offsetHeight - window.innerHeight * .4,
-          exitEnd: top + element.offsetHeight - window.innerHeight * .08
+          exitEnd: top + element.offsetHeight - window.innerHeight * .08,
+          currentEnter: null,
+          currentExit: null
         };
       });
       render();
@@ -92,23 +94,41 @@
 
     const render = () => {
       const scrollTop = window.scrollY || window.pageYOffset;
-      ranges.forEach(({ element, start, end, exitStart, exitEnd }) => {
+      let isSettling = false;
+      ranges.forEach((range) => {
+        const { element, start, end, exitStart, exitEnd } = range;
         const rawProgress = clamp((scrollTop - start) / Math.max(1, end - start), 0, 1);
-        const enterProgress = easeOutCubic(rawProgress);
         const rawExitProgress = element.classList.contains("profile-contact")
           ? 0
           : clamp((scrollTop - exitStart) / Math.max(1, exitEnd - exitStart), 0, 1);
-        const exitProgress = rawExitProgress ** 2;
+        const targetEnter = easeOutCubic(rawProgress);
+        const targetExit = rawExitProgress ** 2;
+
+        if (range.currentEnter === null) range.currentEnter = targetEnter;
+        if (range.currentExit === null) range.currentExit = targetExit;
+        range.currentEnter += (targetEnter - range.currentEnter) * .14;
+        range.currentExit += (targetExit - range.currentExit) * .11;
+
+        if (Math.abs(targetEnter - range.currentEnter) > .001 || Math.abs(targetExit - range.currentExit) > .001) {
+          isSettling = true;
+        }
+
+        const enterProgress = range.currentEnter;
+        const exitProgress = range.currentExit;
         const opacity = interpolate(.08, 1, enterProgress) * interpolate(1, .08, exitProgress);
-        const translateY = interpolate(72, 0, enterProgress) + interpolate(0, -48, exitProgress);
-        const scale = interpolate(.975, 1, enterProgress) - exitProgress * .012;
+        const translateY = interpolate(86, 0, enterProgress) + interpolate(0, -72, exitProgress);
+        const scale = interpolate(.968, 1, enterProgress) - exitProgress * .018;
         const blur = Math.max(interpolate(12, 0, enterProgress), interpolate(0, 8, exitProgress));
 
         element.style.setProperty("--scroll-opacity", opacity.toFixed(3));
         element.style.setProperty("--scroll-transform", `translate3d(0, ${translateY.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`);
         element.style.setProperty("--scroll-blur", `${blur.toFixed(2)}px`);
       });
-      ticking = false;
+      if (isSettling) {
+        window.requestAnimationFrame(render);
+      } else {
+        ticking = false;
+      }
     };
 
     const requestRender = () => {
