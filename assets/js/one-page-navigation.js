@@ -2,6 +2,8 @@
   "use strict";
 
   const sectionIds = ["home", "publications", "cv", "contact"];
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let scrollAnimationId = 0;
 
   function enforceMobileNavigation() {
     if (!window.matchMedia("(max-width: 760px)").matches) {
@@ -32,12 +34,52 @@
   function scrollToSection(id, updateHistory) {
     const section = document.getElementById(id);
     if (!section) return;
-    section.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "start"
-    });
+
+    const mastheadHeight = document.querySelector(".masthead")?.offsetHeight || 0;
+    const startY = window.scrollY;
+    const targetY = Math.max(0, section.getBoundingClientRect().top + startY - mastheadHeight - 20);
+    const distance = targetY - startY;
+    const animationId = ++scrollAnimationId;
+
+    if (reduceMotion.matches) {
+      window.scrollTo(0, targetY);
+    } else {
+      const duration = Math.min(1250, Math.max(720, 620 + Math.abs(distance) * .16));
+      const startedAt = performance.now();
+      const easeInOutQuint = (progress) => progress < .5
+        ? 16 * progress ** 5
+        : 1 - ((-2 * progress + 2) ** 5) / 2;
+
+      const animate = (now) => {
+        if (animationId !== scrollAnimationId) return;
+        const progress = Math.min(1, (now - startedAt) / duration);
+        window.scrollTo(0, startY + distance * easeInOutQuint(progress));
+        if (progress < 1) window.requestAnimationFrame(animate);
+      };
+      window.requestAnimationFrame(animate);
+    }
+
     setActiveSection(id);
     if (updateHistory) history.pushState({}, "", `#${id}`);
+  }
+
+  function prepareScrollReveals() {
+    const revealTargets = document.querySelectorAll(".profile-details, .one-page-section, .profile-contact");
+    if (reduceMotion.matches || !("IntersectionObserver" in window)) {
+      revealTargets.forEach((target) => target.classList.add("has-revealed"));
+      return;
+    }
+
+    document.documentElement.classList.add("scroll-motion-ready");
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("has-revealed");
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -12%", threshold: .12 });
+
+    revealTargets.forEach((target) => revealObserver.observe(target));
   }
 
   document.addEventListener("click", (event) => {
@@ -67,8 +109,12 @@
 
   window.requestAnimationFrame(() => {
     enforceMobileNavigation();
+    prepareScrollReveals();
     const initialId = sectionIds.includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : "home";
     setActiveSection(initialId);
+  });
+  ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
+    window.addEventListener(eventName, () => { scrollAnimationId += 1; }, { passive: true });
   });
   window.addEventListener("resize", () => window.requestAnimationFrame(enforceMobileNavigation));
   window.addEventListener("orientationchange", () => window.requestAnimationFrame(enforceMobileNavigation));
