@@ -5,6 +5,9 @@
   const SHOWER_SIZE = 14;
   const MAX_VISIBLE = 140;
   const NAV_DELAY = 420;
+  const GRAVITY = .88;
+  const BALL_RESTITUTION = .66;
+  const FLOOR_RESTITUTION = .64;
   const emojiByKey = { home: "🏠", publications: "📚", cv: "📑", contact: "📞" };
 
   const localDay = () => {
@@ -95,8 +98,8 @@
       radius,
       x: Math.max(radius, Math.min(width - radius, falling ? fallingX : packedX)),
       y: falling ? -radius - (index % 6) * 46 : Math.max(radius, height - radius - row * radius * 1.65),
-      vx: falling ? (((seed >>> 12) % 17) - 8) * .08 : 0,
-      vy: falling ? 1 + ((seed >>> 16) % 10) * .08 : 0,
+      vx: falling ? (((seed >>> 12) % 17) - 8) * .16 : 0,
+      vy: falling ? 4.8 + ((seed >>> 16) % 14) * .2 : 0,
       angle: ((seed >>> 12) % 45) - 22,
       angularVelocity: (((seed >>> 21) % 13) - 6) * .08,
       mass: radius * radius
@@ -150,7 +153,7 @@
         const velocityAlongNormal = relativeX * normalX + relativeY * normalY;
         if (velocityAlongNormal > 0) continue;
 
-        const impulse = -(1.38 * velocityAlongNormal) / inverseTotal;
+        const impulse = -((1 + BALL_RESTITUTION) * velocityAlongNormal) / inverseTotal;
         first.vx -= impulse * normalX * inverseFirst;
         first.vy -= impulse * normalY * inverseFirst;
         second.vx += impulse * normalX * inverseSecond;
@@ -176,7 +179,7 @@
     const height = window.innerHeight;
 
     bodies.forEach((body) => {
-      body.vy += .42 * step;
+      body.vy += GRAVITY * step;
       body.x += body.vx * step;
       body.y += body.vy * step;
       body.angle += body.angularVelocity * step;
@@ -193,8 +196,8 @@
 
       if (body.y > height - body.radius) {
         body.y = height - body.radius;
-        body.vy = Math.abs(body.vy) < 1 ? 0 : -Math.abs(body.vy) * .5;
-        body.vx *= .94;
+        body.vy = Math.abs(body.vy) < 1.15 ? 0 : -Math.abs(body.vy) * FLOOR_RESTITUTION;
+        body.vx *= .965;
         body.angularVelocity *= .9;
       }
     });
@@ -227,7 +230,7 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
     for (let offset = 0; offset < SHOWER_SIZE; offset += 1) {
-      window.setTimeout(() => makePiece(key, previousTotal + offset, true), offset * 35);
+      window.setTimeout(() => makePiece(key, previousTotal + offset, true), offset * 24);
     }
   }
 
