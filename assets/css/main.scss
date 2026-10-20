@@ -272,11 +272,92 @@
 }
 
 @media (max-width: 600px) {
-  .masthead__menu-item--lg a { font-size: 1rem; }
-  .profile-home { padding-top: 2.5rem; }
-  .profile-intro { font-size: calc(1.08rem - 4px); }
-  .profile-role, .profile-affiliation { font-size: calc(1.05rem - 2px); }
-  .multilingual-greeting { margin-bottom: 1.6rem; font-size: 24px; }
+  .masthead__inner-wrap { padding: .35rem .65rem .45rem; }
+  .greedy-nav { min-width: 0; width: 100%; }
+  .greedy-nav > button,
+  .greedy-nav .hidden-links { display: none !important; }
+  .greedy-nav .visible-links {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+  }
+  .greedy-nav .visible-links .masthead__menu-item {
+    display: block;
+    min-width: 0;
+    background: transparent;
+    text-align: center;
+  }
+  .greedy-nav .visible-links .masthead__menu-item--lg {
+    grid-column: 1 / -1;
+    padding: 0;
+    text-align: left;
+  }
+  .greedy-nav .visible-links .masthead__menu-item--lg a {
+    width: fit-content;
+    margin: 0;
+    padding: .12rem 0 .25rem;
+    font-size: .92rem;
+  }
+  .greedy-nav .visible-links a[data-nav-emoji] {
+    justify-content: center;
+    gap: .24rem;
+    margin: 0;
+    padding: .32rem .08rem .28rem;
+    font-size: clamp(.62rem, 2.8vw, .76rem);
+  }
+  .greedy-nav .visible-links a:before { height: 2px; }
+  .nav-label-emoji { font-size: .9em; }
+
+  .profile-home { padding: 1rem .7rem 2.5rem; }
+  .profile-shell {
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    column-gap: clamp(.75rem, 4vw, 1.15rem);
+    row-gap: 1.8rem;
+    align-items: start;
+  }
+  .profile-identity { grid-column: 1; grid-row: 1; }
+  .profile-content,
+  .profile-intro { display: contents; }
+  .profile-portrait {
+    width: 100%;
+    max-width: 170px;
+    margin-bottom: .8rem;
+  }
+  .profile-identity h1 {
+    font-size: clamp(1.25rem, 6vw, 1.65rem);
+    line-height: 1.1;
+  }
+  .profile-role,
+  .profile-affiliation {
+    font-size: clamp(.58rem, 2.65vw, .72rem);
+    line-height: 1.35;
+  }
+  .profile-role { margin: .42rem 0 .2rem; }
+  .profile-social { gap: .45rem; margin-top: .8rem; }
+  .profile-social a { width: 1.75rem; height: 1.75rem; font-size: 1.3rem; }
+
+  .multilingual-greeting {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    width: 100%;
+    margin: .1rem 0 0;
+    font-size: clamp(1.05rem, 5.5vw, 1.42rem);
+    line-height: 1.42;
+  }
+  .profile-intro > p {
+    grid-column: 1 / -1;
+    font-size: .84rem;
+    line-height: 1.62;
+  }
+  .profile-details,
+  .featured-publication,
+  .profile-contact { grid-column: 1 / -1; }
+  .profile-details { grid-template-columns: 1fr; gap: 2rem; margin-top: .3rem; }
+  .profile-details h2,
+  .featured-publication h2,
+  .profile-contact h2 { font-size: 1.45rem; }
+  .interest-list { font-size: .95rem; }
   .featured-publication { padding: 1.3rem; }
 }
 

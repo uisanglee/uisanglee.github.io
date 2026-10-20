@@ -52,6 +52,28 @@
 
   const setLoader = (active) => loader.classList.toggle("is-active", active);
 
+  function enforceMobileNavigation() {
+    if (!window.matchMedia("(max-width: 760px)").matches) return;
+
+    const nav = document.querySelector("#site-nav");
+    const visibleLinks = nav?.querySelector(".visible-links");
+    const hiddenLinks = nav?.querySelector(".hidden-links");
+    const menuButton = nav?.querySelector("button");
+    if (!nav || !visibleLinks || !hiddenLinks || !menuButton) return;
+
+    while (hiddenLinks.firstElementChild) visibleLinks.appendChild(hiddenLinks.firstElementChild);
+    hiddenLinks.classList.add("hidden");
+    menuButton.classList.add("hidden");
+    menuButton.classList.remove("close");
+
+    const masthead = document.querySelector(".masthead");
+    if (masthead) document.body.style.paddingTop = `${masthead.offsetHeight}px`;
+  }
+
+  window.requestAnimationFrame(enforceMobileNavigation);
+  window.addEventListener("resize", () => window.requestAnimationFrame(enforceMobileNavigation));
+  window.addEventListener("orientationchange", () => window.requestAnimationFrame(enforceMobileNavigation));
+
   function clearPile() {
     bodies.splice(0).forEach((body) => body.element.remove());
     state = emptyState();
