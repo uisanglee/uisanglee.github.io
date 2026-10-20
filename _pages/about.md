@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-<div class="profile-shell">
+<div class="profile-shell" id="home">
   <aside class="profile-identity" aria-label="Profile">
     <img class="profile-portrait" src="{{ '/images/uisang-lee-profile-2026.jpg' | relative_url }}" alt="Portrait of Uisang Lee">
     <h1>Uisang Lee</h1>
@@ -59,12 +59,62 @@ redirect_from:
       </section>
     </div>
 
-    <section class="featured-publication" aria-labelledby="publication-heading">
-      <p class="section-kicker">Selected publication</p>
-      <h2 id="publication-heading">BugSweeper</h2>
-      <p><strong>Function-Level Detection of Smart Contract Vulnerabilities Using Graph Neural Networks</strong></p>
-      <p class="publication-meta">AAAI Conference on Artificial Intelligence, 2026 · Oral Presentation</p>
-      <a class="text-link" href="{{ '/publication/2026-bugsweeper' | relative_url }}">View publication <span aria-hidden="true">→</span></a>
+    <section class="one-page-section publications-section" id="publications" aria-labelledby="publications-heading">
+      <p class="section-kicker">Research output</p>
+      <h2 id="publications-heading">Publications</h2>
+      <p>You can also find my articles on <a href="https://scholar.google.com/citations?user=uHxEGyIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.</p>
+      <article class="publication-card">
+        <p class="publication-year">2026 · AAAI Oral Presentation</p>
+        <h3>BugSweeper: Function-Level Detection of Smart Contract Vulnerabilities Using Graph Neural Networks</h3>
+        <p>Uisang Lee, C. Chung, J. Lee, and S.-M. Moon</p>
+        <p class="publication-meta"><em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, 40(1), 570–578</p>
+        <a class="text-link" href="{{ '/publication/2026-bugsweeper' | relative_url }}">View publication <span aria-hidden="true">→</span></a>
+      </article>
+    </section>
+
+    <section class="one-page-section cv-section" id="cv" aria-labelledby="cv-heading">
+      <p class="section-kicker">Curriculum Vitae</p>
+      <h2 id="cv-heading">CV</h2>
+
+      <div class="cv-grid">
+        <section aria-labelledby="cv-education-heading">
+          <h3 id="cv-education-heading">Education</h3>
+          <div class="cv-item"><strong>Integrated M.S./Ph.D. in Electrical and Computer Engineering</strong><span>Seoul National University · 2021–Present</span><small>Advisor: Prof. Soo-Mook Moon</small></div>
+          <div class="cv-item"><strong>B.S. in Biomedical Engineering</strong><span>Kyung Hee University · 2015–2021</span></div>
+        </section>
+
+        <section aria-labelledby="activities-heading">
+          <h3 id="activities-heading">Research Activities</h3>
+          <div class="cv-item"><strong>Graduate Researcher · VMO Laboratory</strong><span>Seoul National University · 2021–Present</span><small>LLM response generation, code reasoning, program analysis, and smart-contract vulnerability detection.</small></div>
+        </section>
+
+        <section aria-labelledby="teaching-heading">
+          <h3 id="teaching-heading">Teaching</h3>
+          <ul class="compact-list">
+            <li>Introduction to Compilers · Teaching Assistant, 2022</li>
+            <li>Advanced Compilers · Teaching Assistant, 2023</li>
+            <li>System Expert Program · Samsung Electronics DS, 2023–2024</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="awards-heading">
+          <h3 id="awards-heading">Honors &amp; Awards</h3>
+          <ul class="compact-list">
+            <li>Chung Mong-Koo Scholarship, 2023–2026</li>
+            <li>Encouragement Award, POSTECH Open Innovation Big Data Challenge, 2020</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="skills-heading">
+          <h3 id="skills-heading">Technical Skills</h3>
+          <p class="mono-line">Python · C/C++ · PyTorch</p>
+        </section>
+
+        <section aria-labelledby="languages-heading">
+          <h3 id="languages-heading">Languages</h3>
+          <p class="mono-line">English · Fluent<br>Japanese · Intermediate</p>
+        </section>
+      </div>
     </section>
 
     <section class="profile-contact" id="contact" aria-labelledby="contact-heading">
