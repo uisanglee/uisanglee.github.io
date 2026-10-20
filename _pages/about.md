@@ -7,8 +7,9 @@ redirect_from:
   - /about.html
 ---
 
-<div class="profile-shell" id="home">
-  <aside class="profile-identity" aria-label="Profile">
+<div class="profile-shell">
+  <section class="home-section glass-section" id="home" aria-label="Home">
+    <aside class="profile-identity" aria-label="Profile">
     <img class="profile-portrait" src="{{ '/images/uisang-lee-profile-2026.jpg' | relative_url }}" alt="Portrait of Uisang Lee">
     <h1>Uisang Lee</h1>
     <p class="profile-role">Integrated M.S./Ph.D. Student</p>
@@ -19,9 +20,9 @@ redirect_from:
       <a href="https://scholar.google.com/citations?user=uHxEGyIAAAAJ" aria-label="Google Scholar" target="_blank" rel="noopener"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></a>
       <a href="https://github.com/uisanglee" aria-label="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
     </nav>
-  </aside>
+    </aside>
 
-  <div class="profile-content">
+    <div class="profile-content">
     <section class="profile-intro" aria-labelledby="intro-heading">
       <h2 class="sr-only" id="intro-heading">Introduction</h2>
       <div class="multilingual-greeting" aria-label="안녕하세요. Hello. こんにちは. Hola¡">
@@ -57,9 +58,11 @@ redirect_from:
           <div><strong>B.S. in Biomedical Engineering</strong><span>Kyung Hee University, 2015–2021</span></div>
         </div>
       </section>
+      </div>
     </div>
+  </section>
 
-    <section class="one-page-section publications-section" id="publications" aria-labelledby="publications-heading">
+    <section class="one-page-section publications-section glass-section" id="publications" aria-labelledby="publications-heading">
       <p class="section-kicker">Research output</p>
       <h2 id="publications-heading">Publications</h2>
       <p>You can also find my articles on <a href="https://scholar.google.com/citations?user=uHxEGyIAAAAJ" target="_blank" rel="noopener">Google Scholar</a>.</p>
@@ -72,7 +75,7 @@ redirect_from:
       </article>
     </section>
 
-    <section class="one-page-section cv-section" id="cv" aria-labelledby="cv-heading">
+    <section class="one-page-section cv-section glass-section" id="cv" aria-labelledby="cv-heading">
       <p class="section-kicker">Curriculum Vitae</p>
       <h2 id="cv-heading">CV</h2>
 
@@ -117,9 +120,8 @@ redirect_from:
       </div>
     </section>
 
-    <section class="profile-contact" id="contact" aria-labelledby="contact-heading">
+    <section class="profile-contact glass-section" id="contact" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Contact</h2>
       <p><a href="mailto:uisang.lee@snu.ac.kr">uisang.lee@snu.ac.kr</a><br><a href="mailto:dmltkdzlem@naver.com">dmltkdzlem@naver.com</a></p>
     </section>
-  </div>
 </div>
