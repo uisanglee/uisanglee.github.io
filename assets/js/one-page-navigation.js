@@ -63,23 +63,64 @@
     if (updateHistory) history.pushState({}, "", `#${id}`);
   }
 
-  function prepareScrollReveals() {
-    const revealTargets = document.querySelectorAll(".profile-details, .one-page-section, .profile-contact");
-    if (reduceMotion.matches || !("IntersectionObserver" in window)) {
-      revealTargets.forEach((target) => target.classList.add("has-revealed"));
-      return;
-    }
+  function prepareScrollAnimations() {
+    const elements = Array.from(document.querySelectorAll(".profile-details, .one-page-section, .profile-contact"));
+    if (reduceMotion.matches) return;
 
     document.documentElement.classList.add("scroll-motion-ready");
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("has-revealed");
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -12%", threshold: .12 });
+    let ranges = [];
+    let ticking = false;
 
-    revealTargets.forEach((target) => revealObserver.observe(target));
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+    const interpolate = (from, to, progress) => from + (to - from) * progress;
+    const easeOutCubic = (progress) => 1 - (1 - progress) ** 3;
+
+    const measure = () => {
+      elements.forEach((element) => element.style.removeProperty("--scroll-transform"));
+      ranges = elements.map((element) => {
+        const top = element.getBoundingClientRect().top + window.scrollY;
+        return {
+          element,
+          start: top - window.innerHeight * .9,
+          end: top - window.innerHeight * .28,
+          exitStart: top + element.offsetHeight - window.innerHeight * .4,
+          exitEnd: top + element.offsetHeight - window.innerHeight * .08
+        };
+      });
+      render();
+    };
+
+    const render = () => {
+      const scrollTop = window.scrollY || window.pageYOffset;
+      ranges.forEach(({ element, start, end, exitStart, exitEnd }) => {
+        const rawProgress = clamp((scrollTop - start) / Math.max(1, end - start), 0, 1);
+        const enterProgress = easeOutCubic(rawProgress);
+        const rawExitProgress = element.classList.contains("profile-contact")
+          ? 0
+          : clamp((scrollTop - exitStart) / Math.max(1, exitEnd - exitStart), 0, 1);
+        const exitProgress = rawExitProgress ** 2;
+        const opacity = interpolate(.08, 1, enterProgress) * interpolate(1, .08, exitProgress);
+        const translateY = interpolate(72, 0, enterProgress) + interpolate(0, -48, exitProgress);
+        const scale = interpolate(.975, 1, enterProgress) - exitProgress * .012;
+        const blur = Math.max(interpolate(12, 0, enterProgress), interpolate(0, 8, exitProgress));
+
+        element.style.setProperty("--scroll-opacity", opacity.toFixed(3));
+        element.style.setProperty("--scroll-transform", `translate3d(0, ${translateY.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`);
+        element.style.setProperty("--scroll-blur", `${blur.toFixed(2)}px`);
+      });
+      ticking = false;
+    };
+
+    const requestRender = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(render);
+    };
+
+    measure();
+    window.addEventListener("scroll", requestRender, { passive: true });
+    window.addEventListener("resize", measure);
+    window.addEventListener("orientationchange", measure);
   }
 
   document.addEventListener("click", (event) => {
@@ -109,7 +150,7 @@
 
   window.requestAnimationFrame(() => {
     enforceMobileNavigation();
-    prepareScrollReveals();
+    prepareScrollAnimations();
     const initialId = sectionIds.includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : "home";
     setActiveSection(initialId);
   });
