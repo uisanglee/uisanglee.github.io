@@ -5,8 +5,15 @@
   const brandLabels = { home: "Uisang Lee", publications: "📚", cv: "📑", contact: "📞" };
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let scrollAnimationId = 0;
+  let navigationTargetId = null;
   let activeSectionId = null;
   let brandSwapTimer = null;
+
+  function finishNavigationScroll() {
+    navigationTargetId = null;
+    document.documentElement.classList.remove("is-section-scrolling");
+    window.dispatchEvent(new CustomEvent("section-scroll-finished"));
+  }
 
   function getDocumentTop(element) {
     let top = 0;
@@ -85,18 +92,25 @@
 
     if (reduceMotion.matches) {
       window.scrollTo(0, targetY);
+      finishNavigationScroll();
     } else {
-      const duration = Math.min(1250, Math.max(720, 620 + Math.abs(distance) * .16));
+      navigationTargetId = id;
+      document.documentElement.classList.add("is-section-scrolling");
+      const duration = Math.min(900, Math.max(500, 430 + Math.abs(distance) * .085));
       const startedAt = performance.now();
-      const easeInOutQuint = (progress) => progress < .5
-        ? 16 * progress ** 5
-        : 1 - ((-2 * progress + 2) ** 5) / 2;
+      const easeInOutCubic = (progress) => progress < .5
+        ? 4 * progress ** 3
+        : 1 - ((-2 * progress + 2) ** 3) / 2;
 
       const animate = (now) => {
         if (animationId !== scrollAnimationId) return;
         const progress = Math.min(1, (now - startedAt) / duration);
-        window.scrollTo(0, startY + distance * easeInOutQuint(progress));
-        if (progress < 1) window.requestAnimationFrame(animate);
+        window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+        if (progress < 1) {
+          window.requestAnimationFrame(animate);
+        } else {
+          finishNavigationScroll();
+        }
       };
       window.requestAnimationFrame(animate);
     }
@@ -139,6 +153,10 @@
     };
 
     const render = () => {
+      if (document.documentElement.classList.contains("is-section-scrolling")) {
+        ticking = false;
+        return;
+      }
       const scrollTop = window.scrollY || window.pageYOffset;
       let isSettling = false;
       ranges.forEach((range) => {
@@ -198,6 +216,7 @@
 
     measure();
     window.addEventListener("scroll", requestRender, { passive: true });
+    window.addEventListener("section-scroll-finished", measure);
     window.addEventListener("resize", measure);
     window.addEventListener("orientationchange", measure);
   }
@@ -216,6 +235,7 @@
   });
 
   const observer = new IntersectionObserver((entries) => {
+    if (navigationTargetId) return;
     const visible = entries
       .filter((entry) => entry.isIntersecting)
       .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
@@ -237,7 +257,11 @@
     }
   });
   ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
-    window.addEventListener(eventName, () => { scrollAnimationId += 1; }, { passive: true });
+    window.addEventListener(eventName, () => {
+      if (!navigationTargetId) return;
+      scrollAnimationId += 1;
+      finishNavigationScroll();
+    }, { passive: true });
   });
   window.addEventListener("resize", () => window.requestAnimationFrame(enforceMobileNavigation));
   window.addEventListener("orientationchange", () => window.requestAnimationFrame(enforceMobileNavigation));
