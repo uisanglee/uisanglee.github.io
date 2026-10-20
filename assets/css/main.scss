@@ -461,9 +461,9 @@ body {
 
 .masthead {
   z-index: 20;
-  background: rgba(255, 255, 255, .78) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(1.15);
-  backdrop-filter: blur(14px) saturate(1.15);
+  background: #fff !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .masthead__inner-wrap,
@@ -662,9 +662,13 @@ samp,
   letter-spacing: .01em;
 }
 
-.masthead,
 .page__footer {
   background: rgba(255, 255, 255, .8) !important;
+  color: #111111 !important;
+}
+
+.masthead {
+  background: #fff !important;
   color: #111111 !important;
 }
 
