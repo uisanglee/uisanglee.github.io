@@ -669,7 +669,20 @@ samp,
 
 .masthead {
   background: #fff !important;
+  background-color: #fff !important;
+  background-image: none !important;
   color: #111111 !important;
+  opacity: 1 !important;
+  isolation: isolate;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.masthead__inner-wrap,
+.masthead__menu,
+.greedy-nav {
+  background-color: #fff !important;
+  background-image: none !important;
 }
 
 .greedy-nav { background: transparent !important; }
