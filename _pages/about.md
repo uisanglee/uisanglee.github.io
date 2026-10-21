@@ -39,7 +39,7 @@ redirect_from:
       <section aria-labelledby="interests-heading">
         <h2 id="interests-heading">Interests</h2>
         <ul class="interest-list">
-          <li>Diffusion and Autoregressive LLMs (Inference / Training)</li>
+          <li class="interest-llm-motion"><span class="interest-term interest-diffusion" data-motion-text="Diffusion">Diffusion</span> and <span class="interest-term interest-autoregressive" data-motion-text="Autoregressive">Autoregressive</span> LLMs (Inference / Training)</li>
           <li>AI for code generation</li>
           <li>Intent-aligned response generation</li>
         </ul>

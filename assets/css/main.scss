@@ -356,6 +356,78 @@
   line-height: 1.65;
 }
 
+/* Two LLM generation styles: randomized masked materialization vs. typed AR. */
+.interest-term { display: inline-block; white-space: nowrap; }
+
+.interest-llm-motion.is-motion-prepared .motion-char {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  vertical-align: baseline;
+}
+
+.interest-llm-motion.is-motion-prepared .motion-char.is-space { width: .28em; }
+
+.interest-llm-motion.is-motion-prepared .motion-char::after {
+  position: absolute;
+  inset: 0;
+  color: #111;
+  content: attr(data-char);
+  opacity: 0;
+}
+
+.interest-llm-motion.is-motion-prepared .diffusion-char:not(.is-space)::before {
+  position: absolute;
+  top: .2em;
+  right: .04em;
+  bottom: .18em;
+  left: .04em;
+  border-radius: .13em;
+  background: #9aa6b7;
+  box-shadow: 0 0 .12em rgba(40, 100, 255, .25);
+  content: "";
+  opacity: .78;
+  transform: translate(var(--mask-x), var(--mask-y)) scale(var(--mask-scale));
+}
+
+.interest-llm-motion.is-motion-playing .diffusion-char::before {
+  animation: diffusion-mask-clear .44s cubic-bezier(.2, .8, .2, 1) var(--motion-delay) both;
+}
+
+.interest-llm-motion.is-motion-playing .diffusion-char::after {
+  animation: diffusion-glyph-in .5s cubic-bezier(.2, .8, .2, 1) var(--motion-delay) both;
+}
+
+.interest-llm-motion.is-motion-playing .autoregressive-char::after {
+  transition: opacity .1s steps(1, end);
+}
+
+.interest-llm-motion.is-motion-playing .autoregressive-char.is-revealed::after {
+  opacity: 1;
+}
+
+.interest-llm-motion.is-motion-playing .interest-autoregressive::after {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  margin-left: .08em;
+  background: #2864ff;
+  content: "";
+  vertical-align: -.12em;
+  animation: autoregressive-caret 1s steps(1, end) 1.85s 3;
+}
+
+@keyframes diffusion-mask-clear {
+  to { opacity: 0; transform: translate(0, 0) scale(.5); }
+}
+
+@keyframes diffusion-glyph-in {
+  from { opacity: 0; filter: blur(3px); transform: translate(var(--mask-x), var(--mask-y)) scale(.84); }
+  to { opacity: 1; filter: blur(0); transform: translate(0, 0) scale(1); }
+}
+
+@keyframes autoregressive-caret { 50% { opacity: 0; } }
+
 .education-item {
   display: grid;
   grid-template-columns: 1.7rem minmax(0, 1fr);
