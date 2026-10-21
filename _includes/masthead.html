@@ -15,7 +15,10 @@
               {% assign domain = base_path %}
             {% endif %}
             <li class="masthead__menu-item">
-              <a href="{{ domain }}{{ link.url }}" data-section-link="{{ link.title | downcase }}"><span>{{ link.title }}</span></a>
+              <a class="finder-nav-link" href="{{ domain }}{{ link.url }}" data-section-link="{{ link.title | downcase }}">
+                <span class="nav-folder-icon" aria-hidden="true"></span>
+                <span class="finder-nav-label">{{ link.title }}</span>
+              </a>
             </li>
           {% endfor %}
         </ul>
