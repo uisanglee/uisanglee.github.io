@@ -395,11 +395,11 @@
 }
 
 .interest-llm-motion.is-motion-playing .diffusion-char::before {
-  animation: diffusion-mask-clear .44s cubic-bezier(.2, .8, .2, 1) var(--motion-delay) both;
+  animation: diffusion-mask-clear .65s cubic-bezier(.2, .8, .2, 1) var(--motion-delay) both;
 }
 
 .interest-llm-motion.is-motion-playing .diffusion-char::after {
-  animation: diffusion-glyph-in .5s cubic-bezier(.2, .8, .2, 1) var(--motion-delay) both;
+  animation: diffusion-glyph-in .7s cubic-bezier(.2, .8, .2, 1) var(--motion-delay) both;
 }
 
 .interest-llm-motion.is-motion-playing .autoregressive-char::after {
@@ -410,17 +410,6 @@
   opacity: 1;
 }
 
-.interest-llm-motion.is-motion-playing .interest-autoregressive::after {
-  display: inline-block;
-  width: 1px;
-  height: 1em;
-  margin-left: .08em;
-  background: #2864ff;
-  content: "";
-  vertical-align: -.12em;
-  animation: autoregressive-caret 1s steps(1, end) 1.85s 3;
-}
-
 @keyframes diffusion-mask-clear {
   to { opacity: 0; transform: translate(0, 0) scale(.5); }
 }
@@ -429,8 +418,6 @@
   from { opacity: 0; transform: translate(var(--mask-x), var(--mask-y)) scale(.84); }
   to { opacity: 1; transform: translate(0, 0) scale(1); }
 }
-
-@keyframes autoregressive-caret { 50% { opacity: 0; } }
 
 .education-item {
   display: grid;

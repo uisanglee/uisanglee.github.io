@@ -27,7 +27,7 @@
       glyph.dataset.char = character;
       glyph.setAttribute("aria-hidden", "true");
       glyph.textContent = character;
-      glyph.style.setProperty("--motion-delay", `${type === "diffusion" ? rank * 62 : 920 + rank * 74}ms`);
+      glyph.style.setProperty("--motion-delay", `${type === "diffusion" ? rank * 125 : 0}ms`);
       glyph.style.setProperty("--mask-x", `${Math.round((Math.random() - .5) * 16)}px`);
       glyph.style.setProperty("--mask-y", `${Math.round((Math.random() - .5) * 12)}px`);
       glyph.style.setProperty("--mask-scale", (0.75 + Math.random() * .55).toFixed(2));
@@ -50,20 +50,43 @@
     makeCharacters(autoregressive, "autoregressive");
     item.classList.add("is-motion-prepared");
 
+    const diffusionGlyphs = Array.from(item.querySelectorAll(".diffusion-char"));
+    const autoregressiveGlyphs = Array.from(item.querySelectorAll(".autoregressive-char"));
+    let cycle = 0;
+
     const play = () => {
+      cycle += 1;
+      const activeCycle = cycle;
+      const order = shuffledIndexes(diffusionGlyphs.length);
+      const ranks = new Map(order.map((characterIndex, rank) => [characterIndex, rank]));
+
+      item.classList.remove("is-motion-playing");
+      autoregressiveGlyphs.forEach((glyph) => glyph.classList.remove("is-revealed"));
+      diffusionGlyphs.forEach((glyph, index) => {
+        glyph.style.setProperty("--motion-delay", `${ranks.get(index) * 125}ms`);
+        glyph.style.setProperty("--mask-x", `${Math.round((Math.random() - .5) * 16)}px`);
+        glyph.style.setProperty("--mask-y", `${Math.round((Math.random() - .5) * 12)}px`);
+      });
+      void item.offsetWidth;
       item.classList.add("is-motion-playing");
-      item.querySelectorAll(".autoregressive-char").forEach((glyph, index) => {
-        window.setTimeout(() => glyph.classList.add("is-revealed"), 920 + index * 74);
+      autoregressiveGlyphs.forEach((glyph, index) => {
+        window.setTimeout(() => {
+          if (cycle === activeCycle) glyph.classList.add("is-revealed");
+        }, 1500 + index * 75);
       });
     };
+    const startLoop = () => {
+      play();
+      window.setInterval(play, 3000);
+    };
     if (!("IntersectionObserver" in window)) {
-      window.setTimeout(play, 80);
+      window.setTimeout(startLoop, 80);
       return;
     }
 
     const observer = new IntersectionObserver((entries) => {
       if (!entries.some((entry) => entry.isIntersecting)) return;
-      play();
+      startLoop();
       observer.disconnect();
     }, { threshold: .45 });
     observer.observe(item);
