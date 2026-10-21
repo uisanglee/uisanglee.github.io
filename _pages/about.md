@@ -39,24 +39,10 @@ redirect_from:
       <section aria-labelledby="interests-heading">
         <h2 id="interests-heading">Interests</h2>
         <ul class="interest-list">
+          <li>Diffusion and Autoregressive LLMs (Inference / Training)</li>
+          <li>AI for code generation</li>
           <li>Intent-aligned response generation</li>
-          <li>Diffusion and autoregressive LLMs</li>
-          <li>LLMs for code generation and reasoning</li>
-          <li>Program analysis</li>
-          <li>Smart-contract vulnerability detection</li>
         </ul>
-      </section>
-
-      <section aria-labelledby="education-heading">
-        <h2 id="education-heading">Education</h2>
-        <div class="education-item">
-          <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-          <div><strong>Integrated M.S./Ph.D. in Electrical and Computer Engineering</strong><span>Seoul National University, 2021–Present</span></div>
-        </div>
-        <div class="education-item">
-          <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-          <div><strong>B.S. in Biomedical Engineering</strong><span>Kyung Hee University, 2015–2021</span></div>
-        </div>
       </section>
       </div>
     </div>

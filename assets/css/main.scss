@@ -296,7 +296,7 @@
 
 .profile-intro {
   max-width: 900px;
-  font-size: clamp(calc(1.25rem - 4px), calc(2vw - 4px), calc(1.62rem - 4px));
+  font-size: clamp(calc(1.25rem - 6px), calc(2vw - 6px), calc(1.62rem - 6px));
   line-height: 1.7;
 }
 
@@ -335,7 +335,7 @@
 
 .profile-details {
   display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr);
+  grid-template-columns: 1fr;
   gap: clamp(2rem, 5vw, 5rem);
   margin-top: 3.4rem;
 }
@@ -501,7 +501,7 @@
   }
   .profile-intro > p {
     grid-column: 1 / -1;
-    font-size: .84rem;
+    font-size: calc(.84rem - 2px);
     line-height: 1.62;
   }
   .profile-details,
