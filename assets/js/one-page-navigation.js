@@ -120,7 +120,7 @@
   }
 
   function prepareScrollAnimations() {
-    const elements = Array.from(document.querySelectorAll(".profile-details, .one-page-section, .profile-contact"));
+    const elements = Array.from(document.querySelectorAll(".one-page-section, .profile-contact"));
     if (reduceMotion.matches) return;
 
     document.documentElement.classList.add("scroll-motion-ready");

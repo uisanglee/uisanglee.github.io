@@ -596,7 +596,6 @@ body {
   scroll-margin-top: 6.75rem;
 }
 
-.scroll-motion-ready .profile-details,
 .scroll-motion-ready .one-page-section,
 .scroll-motion-ready .profile-contact {
   opacity: var(--scroll-opacity, 1);
@@ -609,7 +608,6 @@ body {
 
 /* Keep button-triggered travel on the compositor: intermediate panels do not
    run blur/spring effects while the page is moving to the selected section. */
-.is-section-scrolling.scroll-motion-ready .profile-details,
 .is-section-scrolling.scroll-motion-ready .one-page-section,
 .is-section-scrolling.scroll-motion-ready .profile-contact {
   opacity: 1 !important;
@@ -621,7 +619,6 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .brand-roulette { animation: none !important; }
-  .profile-details,
   .one-page-section,
   .profile-contact {
     opacity: 1 !important;
