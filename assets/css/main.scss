@@ -66,7 +66,7 @@
 
 .masthead__menu-item--lg a {
   color: #272b31;
-  font-size: 1.25rem;
+  font-size: calc(1.25rem + 3px);
   font-weight: 750;
   letter-spacing: -.025em;
 }
@@ -371,7 +371,7 @@
     width: fit-content;
     margin: 0;
     padding: .12rem 0 .25rem;
-    font-size: .92rem;
+    font-size: calc(.92rem + 3px);
   }
   .brand-roulette-link {
     min-width: 5.9rem;
@@ -383,6 +383,9 @@
     margin: 0;
     padding: .32rem .08rem .28rem;
     font-size: clamp(.62rem, 2.8vw, .76rem);
+  }
+  .greedy-nav .visible-links .masthead__menu-item--lg a.brand-roulette-link {
+    font-size: calc(clamp(.62rem, 2.8vw, .76rem) + 3px);
   }
   .greedy-nav .visible-links a:before { height: 2px; }
 
