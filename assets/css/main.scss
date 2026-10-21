@@ -465,7 +465,7 @@
   .home-section {
     grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
     column-gap: clamp(.75rem, 4vw, 1.15rem);
-    row-gap: 1.8rem;
+    row-gap: .9rem;
     align-items: start;
     padding: 1.2rem .9rem 1.4rem;
   }
@@ -491,23 +491,27 @@
   .profile-social a { width: 1.75rem; height: 1.75rem; font-size: 1.3rem; }
 
   .multilingual-greeting {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: start;
-    width: 100%;
-    margin: .1rem 0 0;
-    font-size: clamp(1.05rem, 5.5vw, 1.42rem);
-    line-height: 1.42;
+    display: none;
   }
   .profile-intro > p {
     grid-column: 1 / -1;
+    margin: 0;
     font-size: calc(.84rem - 2px);
     line-height: 1.62;
+  }
+  .profile-intro > p:first-of-type {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    padding-bottom: .15rem;
+  }
+  .profile-intro > p:nth-of-type(2) {
+    grid-row: 2;
   }
   .profile-details,
   .one-page-section,
   .profile-contact { grid-column: 1 / -1; }
-  .profile-details { grid-template-columns: 1fr; gap: 2rem; margin-top: .3rem; }
+  .profile-details { grid-row: 3; grid-template-columns: 1fr; gap: 2rem; margin-top: 0; }
   .profile-details h2,
   .one-page-section > h2,
   .profile-contact h2 { font-size: 1.45rem; }
