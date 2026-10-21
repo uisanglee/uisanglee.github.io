@@ -496,8 +496,8 @@
   .profile-intro > p {
     grid-column: 1 / -1;
     margin: 0;
-    font-size: calc(.84rem - 2px);
-    line-height: 1.62;
+    font-size: clamp(.6rem, 2.55vw, .68rem);
+    line-height: 1.5;
   }
   .profile-intro > p:first-of-type {
     grid-column: 2;
