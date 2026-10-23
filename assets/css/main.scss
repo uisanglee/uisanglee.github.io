@@ -834,6 +834,29 @@ body {
   background: #000;
 }
 
+.terminal-bsod {
+  display: none;
+  height: calc(100% - 55px);
+  min-height: 0;
+  overflow-y: auto;
+  padding: clamp(1.5rem, 6vw, 4.5rem);
+  background: #087bd2;
+  color: #fff;
+  font-family: "Segoe UI", Arial, sans-serif;
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+}
+
+.diffusion-terminal.is-crashed .terminal-screen { display: none; }
+.diffusion-terminal.is-crashed .terminal-bsod { display: flex; align-items: center; }
+.bsod-content { width: min(100%, 880px); margin: 0 auto; }
+.bsod-face { margin-bottom: .75rem; font-size: clamp(3.8rem, 8vw, 7rem); font-weight: 300; line-height: 1; }
+.bsod-message { max-width: 760px; margin: 0 0 1.25rem; font-size: clamp(1.15rem, 2.3vw, 2rem); font-weight: 300; line-height: 1.45; }
+.bsod-progress { margin: 0 0 1.5rem; font-size: clamp(1rem, 1.8vw, 1.45rem); }
+.bsod-details { font-size: clamp(.66rem, 1vw, .9rem); line-height: 1.55; }
+.bsod-details p { margin: .18rem 0; }
+.bsod-details strong { color: #fff; font-weight: 600; }
+
 .terminal-game-pane,
 .terminal-leaderboard {
   min-width: 0;
@@ -945,6 +968,11 @@ body {
   .terminal-titlebar { min-height: 25px; padding: 0 .5rem; font-size: 10px; }
   .terminal-menubar { min-height: 20px; padding: 4px .5rem; font-size: 9px; }
   .terminal-screen { grid-template-columns: 1fr; height: auto; }
+  .terminal-bsod { height: calc(100% - 45px); padding: 1.4rem 1.15rem; }
+  .bsod-face { font-size: 3.4rem; }
+  .bsod-message { margin-bottom: 1rem; font-size: 1.05rem; }
+  .bsod-progress { margin-bottom: 1.15rem; font-size: .9rem; }
+  .bsod-details { font-size: .66rem; }
   .terminal-game-pane { overflow: visible; }
   .terminal-game-pane, .terminal-leaderboard { padding: .58rem .68rem; }
   .terminal-leaderboard { min-height: 104px; border-top: 1px solid #242424; border-left: 0; }

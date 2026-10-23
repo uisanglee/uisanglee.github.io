@@ -131,7 +131,7 @@ redirect_from:
             <p class="terminal-command"><span class="terminal-user" data-game-nickname>visitor</span><span class="terminal-at">@</span><span class="terminal-host">uisanglee.github.io</span>:<span class="terminal-path">~</span>$ <span class="terminal-exec">python diffusion.py --daily</span></p>
             <div class="terminal-stats" aria-label="Daily game information">
               <span>DATE <strong data-game-date>----</strong></span>
-              <span class="attempt-meter">ATTEMPTS <strong><span data-game-progress aria-hidden="true">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span> <span data-game-attempts>0/26</span></strong></span>
+              <span class="attempt-meter">ATTEMPTS <strong><span data-game-progress aria-hidden="true">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span> <span data-game-attempts>0/10</span></strong></span>
             </div>
             <div class="mask-token-grid" data-mask-grid aria-label="Masked daily word"></div>
             <p class="terminal-output" data-game-output aria-live="polite">Loading today's masked word…</p>
@@ -152,6 +152,18 @@ redirect_from:
             </ol>
           </aside>
         </div>
+        <section class="terminal-bsod" data-game-bsod aria-live="assertive" aria-hidden="true">
+          <div class="bsod-content">
+            <div class="bsod-face" aria-hidden="true">:(</div>
+            <p class="bsod-message">Your denoising process ran into a problem and reached the noise limit.</p>
+            <p class="bsod-progress">100% complete</p>
+            <div class="bsod-details">
+              <p>Please wait for the next daily sample to restart.</p>
+              <p>Stop code: DIFFUSION_NOISE_LIMIT</p>
+              <p>Masked word: <strong data-game-failed-word>UNKNOWN</strong></p>
+            </div>
+          </div>
+        </section>
       </section>
     </section>
 </div>

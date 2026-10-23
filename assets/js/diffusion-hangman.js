@@ -6,7 +6,7 @@
 
   const SUPABASE_URL = "https://amiohgkpwojmphrygrrv.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_rdGF_X1D1lhTTylPIueoqA_KIx_Gj8b";
-  const MAX_ATTEMPTS = 26;
+  const MAX_ATTEMPTS = 10;
   const WORDS = [
     "absorb", "access", "active", "adapt", "agent", "align", "answer", "array", "atomic", "binary",
     "branch", "buffer", "cache", "cipher", "client", "cloud", "coding", "compile", "compute", "context",
@@ -29,6 +29,9 @@
     date: root.querySelector("[data-game-date]"),
     attempts: root.querySelector("[data-game-attempts]"),
     progress: root.querySelector("[data-game-progress]"),
+    screen: root.querySelector(".terminal-screen"),
+    bsod: root.querySelector("[data-game-bsod]"),
+    failedWord: root.querySelector("[data-game-failed-word]"),
     grid: root.querySelector("[data-mask-grid]"),
     output: root.querySelector("[data-game-output]"),
     form: root.querySelector("[data-guess-form]"),
@@ -133,11 +136,16 @@
   function renderState(animatedIndices) {
     elements.nickname.textContent = identity.nickname;
     elements.date.textContent = today;
-    const completedBlocks = Math.min(10, Math.floor((state.attempts / MAX_ATTEMPTS) * 10));
+    const completedBlocks = Math.min(10, state.attempts);
     elements.progress.textContent = `${"█".repeat(completedBlocks)}${"░".repeat(10 - completedBlocks)}`;
     elements.attempts.textContent = `${state.attempts}/${MAX_ATTEMPTS}`;
-    elements.progress.classList.toggle("is-warning", state.attempts >= 18);
-    elements.progress.classList.toggle("is-critical", state.attempts >= 24);
+    elements.progress.classList.toggle("is-warning", state.attempts >= 7);
+    elements.progress.classList.toggle("is-critical", state.attempts >= 9);
+    const crashed = !state.solved && state.attempts >= MAX_ATTEMPTS;
+    root.classList.toggle("is-crashed", crashed);
+    elements.screen.setAttribute("aria-hidden", String(crashed));
+    elements.bsod.setAttribute("aria-hidden", String(!crashed));
+    elements.failedWord.textContent = crashed ? word : "UNKNOWN";
     elements.used.textContent = state.letters.length ? state.letters.join(" ") : "—";
     elements.input.disabled = state.solved || state.attempts >= MAX_ATTEMPTS;
     renderTokens(animatedIndices);
