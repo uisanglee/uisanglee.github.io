@@ -957,8 +957,19 @@ body {
   .mask-token { padding: .34rem 0; font-size: clamp(8px, 2.3vw, 10px); }
   .terminal-output { margin: .34rem 0; font-size: 11px; }
   .terminal-guess-form { margin: .32rem 0 .38rem; font-size: 11px; }
-  .terminal-guess-form input { font-size: 16px; line-height: 1.2; }
-  .terminal-command { font-size: 9px; letter-spacing: -.055em; }
+  .terminal-guess-form input {
+    font-size: 16px !important;
+    line-height: 1.2;
+    touch-action: manipulation;
+  }
+  .terminal-command {
+    width: 182%;
+    margin-bottom: .12rem;
+    font-size: 9px;
+    letter-spacing: -.055em;
+    transform: scale(.55);
+    transform-origin: left top;
+  }
   .terminal-history { margin-top: .36rem; font-size: 10px; }
   .leaderboard-heading { margin-bottom: .42rem; padding-bottom: .35rem; }
   .leaderboard-heading h3 { font-size: 11px; }
