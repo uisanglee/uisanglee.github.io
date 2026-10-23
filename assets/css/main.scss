@@ -785,6 +785,12 @@ body {
   text-size-adjust: none;
 }
 
+.diffusion-terminal,
+.diffusion-terminal * {
+  -webkit-text-size-adjust: none !important;
+  text-size-adjust: none !important;
+}
+
 .terminal-titlebar,
 .terminal-menubar {
   display: grid;
