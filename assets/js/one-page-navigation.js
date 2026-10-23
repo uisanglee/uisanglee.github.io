@@ -128,7 +128,7 @@
     const index = sectionIds.indexOf(id);
     if (index < 0) return;
     stage.scrollLeft = 0;
-    if (id === "cv") document.getElementById("cv").scrollTop = 0;
+    document.getElementById(id).scrollTop = 0;
     const startY = window.scrollY;
     const targetY = index === 0 ? 0 : scrollStart + index * slideDistance;
     const distance = targetY - startY;
