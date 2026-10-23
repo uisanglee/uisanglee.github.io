@@ -26,15 +26,13 @@
 
   const elements = {
     nickname: root.querySelector("[data-game-nickname]"),
-    device: root.querySelector("[data-game-device]"),
     date: root.querySelector("[data-game-date]"),
     attempts: root.querySelector("[data-game-attempts]"),
-    status: root.querySelector("[data-game-status]"),
+    progress: root.querySelector("[data-game-progress]"),
     grid: root.querySelector("[data-mask-grid]"),
     output: root.querySelector("[data-game-output]"),
     form: root.querySelector("[data-guess-form]"),
     input: root.querySelector("[data-guess-input]"),
-    keyboard: root.querySelector("[data-game-keyboard]"),
     used: root.querySelector("[data-game-used]"),
     leaderboard: root.querySelector("[data-leaderboard-list]")
   };
@@ -132,30 +130,17 @@
     }));
   }
 
-  function renderKeyboard() {
-    const fragment = document.createDocumentFragment();
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach((letter) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = letter;
-      button.setAttribute("aria-label", `Guess ${letter}`);
-      button.disabled = state.letters.includes(letter) || state.solved || state.attempts >= MAX_ATTEMPTS;
-      button.addEventListener("click", () => processGuess(letter));
-      fragment.appendChild(button);
-    });
-    elements.keyboard.replaceChildren(fragment);
-  }
-
   function renderState(animatedIndices) {
     elements.nickname.textContent = identity.nickname;
-    elements.device.textContent = identity.nickname;
     elements.date.textContent = today;
-    elements.attempts.textContent = String(state.attempts).padStart(2, "0");
-    elements.status.textContent = state.solved ? "DENOISED" : state.attempts >= MAX_ATTEMPTS ? "NOISE LIMIT" : "SAMPLING";
+    const completedBlocks = Math.min(10, Math.floor(state.attempts / 10));
+    elements.progress.textContent = `${"█".repeat(completedBlocks)}${"░".repeat(10 - completedBlocks)}`;
+    elements.attempts.textContent = `${state.attempts}/${MAX_ATTEMPTS}`;
+    elements.progress.classList.toggle("is-warning", state.attempts >= 70);
+    elements.progress.classList.toggle("is-critical", state.attempts >= 90);
     elements.used.textContent = state.letters.length ? state.letters.join(" ") : "—";
     elements.input.disabled = state.solved || state.attempts >= MAX_ATTEMPTS;
     renderTokens(animatedIndices);
-    renderKeyboard();
   }
 
   async function rpc(name, payload) {

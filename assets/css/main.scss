@@ -751,7 +751,11 @@ body {
 }
 
 .contact-card {
-  padding: .8rem 1.25rem;
+  min-height: 116px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.15rem 1.4rem;
   border: 1px solid rgba(255, 255, 255, .8);
   border-radius: 22px;
   background: rgba(255, 255, 255, .96);
@@ -820,7 +824,7 @@ body {
 
 .terminal-stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: auto minmax(0, 1fr);
   gap: .18rem 1rem;
   margin-bottom: .75rem;
   color: #8c9999;
@@ -828,6 +832,11 @@ body {
 }
 
 .terminal-stats strong { color: #f3f6f5; font-weight: 500; }
+.attempt-meter { justify-self: end; }
+.attempt-meter strong { white-space: nowrap; }
+[data-game-progress] { color: #37d6b4; letter-spacing: -.08em; }
+[data-game-progress].is-warning { color: #ffb454; }
+[data-game-progress].is-critical { color: #ff5f56; text-shadow: 0 0 8px rgba(255, 95, 86, .25); }
 .mask-token-grid { display: grid; grid-template-columns: repeat(var(--token-count, 4), minmax(0, 1fr)); gap: clamp(2px, .35vw, 5px); margin: .65rem 0; }
 .mask-token {
   min-width: 0;
@@ -870,27 +879,14 @@ body {
 .terminal-guess-form input:focus { border-bottom-color: #2dd4bf; }
 .terminal-guess-form button {
   padding: .26rem .5rem;
-  border: 1px solid #2eb79f;
+  border: 1px solid #ff5f56;
   border-radius: 3px;
   background: transparent;
-  color: #42e3b8;
+  color: #ff8a83;
   font: inherit;
   cursor: pointer;
 }
 
-.terminal-keyboard { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 3px; }
-.terminal-keyboard button {
-  min-width: 0;
-  padding: .28rem 0;
-  border: 1px solid #465052;
-  border-radius: 3px;
-  background: #2a3032;
-  color: #eef3f2;
-  font: 600 .63rem/1 "SFMono-Regular", Consolas, monospace;
-  cursor: pointer;
-}
-.terminal-keyboard button:hover:not(:disabled), .terminal-keyboard button:focus-visible { border-color: #2dd4bf; color: #55e6c7; }
-.terminal-keyboard button:disabled { opacity: .26; cursor: default; }
 .terminal-history { margin: .55rem 0 0; color: #7f8d8e; font-size: .62rem; }
 .terminal-history span { color: #d8dfde; }
 
@@ -915,18 +911,29 @@ body {
 
 @media (max-width: 720px) {
   .horizontal-ready #contact.contact-stage { gap: 8px; }
-  .contact-card { padding: .55rem .85rem; border-radius: 16px; }
-  .contact-card h2 { margin-bottom: .14rem; font-size: 1.05rem; }
-  .contact-card p { font-size: .7rem; }
+  .contact-card { min-height: 104px; padding: .8rem 1rem; border-radius: 16px; }
+  .contact-card h2 { margin-bottom: .22rem; font-size: 1.05rem; }
+  .contact-card p { font-size: .68rem; line-height: 1.55; }
   .contact-card p span { display: none; }
   .contact-card p a { display: inline-block; margin-right: .45rem; }
-  .diffusion-terminal { min-height: 560px; border-radius: 8px; }
+  .diffusion-terminal { min-height: 0; border-radius: 8px; }
+  .terminal-titlebar { min-height: 25px; padding: 0 .5rem; font-size: .58rem; }
+  .terminal-menubar { min-height: 20px; padding: .22rem .5rem; font-size: .52rem; }
   .terminal-screen { grid-template-columns: 1fr; height: auto; }
   .terminal-game-pane { overflow: visible; }
-  .terminal-leaderboard { min-height: 150px; border-top: 1px solid #3a4143; border-left: 0; }
-  .terminal-stats { gap: .18rem .55rem; }
-  .terminal-keyboard { grid-template-columns: repeat(9, minmax(0, 1fr)); }
-  .mask-token { padding: .45rem 0; font-size: clamp(.37rem, 1.85vw, .56rem); }
+  .terminal-game-pane, .terminal-leaderboard { padding: .58rem .68rem; }
+  .terminal-leaderboard { min-height: 104px; border-top: 1px solid #3a4143; border-left: 0; }
+  .terminal-command { margin-bottom: .42rem; font-size: .55rem; }
+  .terminal-stats { gap: .1rem .4rem; margin-bottom: .45rem; font-size: .49rem; }
+  .mask-token-grid { margin: .42rem 0; }
+  .mask-token { padding: .34rem 0; font-size: clamp(.32rem, 1.55vw, .48rem); }
+  .terminal-output { margin: .34rem 0; font-size: .54rem; }
+  .terminal-guess-form { margin: .32rem 0 .38rem; font-size: .58rem; }
+  .terminal-history { margin-top: .36rem; font-size: .5rem; }
+  .leaderboard-heading { margin-bottom: .42rem; padding-bottom: .35rem; }
+  .leaderboard-heading h3 { font-size: .6rem; }
+  .leaderboard-heading span { font-size: .48rem; }
+  .terminal-leaderboard li { padding: .2rem 0; font-size: .52rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
