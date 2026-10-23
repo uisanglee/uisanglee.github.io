@@ -128,15 +128,15 @@ redirect_from:
         <div class="terminal-menubar" aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</div>
         <div class="terminal-screen">
           <div class="terminal-game-pane">
-            <p class="terminal-command"><span class="terminal-user" data-game-nickname>visitor</span><span class="terminal-at">@</span><span class="terminal-host">diffusion</span>:<span class="terminal-path">~</span>$ denoise --daily</p>
+            <p class="terminal-command"><span class="terminal-user" data-game-nickname>visitor</span><span class="terminal-at">@</span><span class="terminal-host">uisanglee.github.io</span>:<span class="terminal-path">~</span>$ <span class="terminal-exec">python diffusion.py --daily</span></p>
             <div class="terminal-stats" aria-label="Daily game information">
               <span>DATE <strong data-game-date>----</strong></span>
-              <span class="attempt-meter">ATTEMPTS <strong><span data-game-progress aria-hidden="true">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span> <span data-game-attempts>0/100</span></strong></span>
+              <span class="attempt-meter">ATTEMPTS <strong><span data-game-progress aria-hidden="true">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span> <span data-game-attempts>0/26</span></strong></span>
             </div>
             <div class="mask-token-grid" data-mask-grid aria-label="Masked daily word"></div>
             <p class="terminal-output" data-game-output aria-live="polite">Loading today's masked word…</p>
             <form class="terminal-guess-form" data-guess-form autocomplete="off">
-              <label for="diffusion-guess"><span class="terminal-user">guess</span><span aria-hidden="true"> &gt; </span></label>
+              <label for="diffusion-guess"><span class="terminal-user">Guess</span><span aria-hidden="true"> &gt; </span></label>
               <input id="diffusion-guess" data-guess-input type="text" inputmode="text" maxlength="10" pattern="[A-Za-z]+" aria-label="Guess a letter or the whole word">
               <button type="submit">RUN</button>
             </form>

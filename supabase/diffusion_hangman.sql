@@ -3,10 +3,16 @@ create table if not exists public.diffusion_hangman_scores (
   play_date date not null default ((now() at time zone 'utc')::date),
   device_id uuid not null,
   nickname text not null check (char_length(nickname) between 5 and 40),
-  attempts smallint not null check (attempts between 1 and 100),
+  attempts smallint not null check (attempts between 1 and 26),
   completed_at timestamptz not null default now(),
   unique (play_date, device_id)
 );
+
+alter table public.diffusion_hangman_scores
+  drop constraint if exists diffusion_hangman_scores_attempts_check;
+alter table public.diffusion_hangman_scores
+  add constraint diffusion_hangman_scores_attempts_check
+  check (attempts between 1 and 26);
 
 alter table public.diffusion_hangman_scores enable row level security;
 revoke all on table public.diffusion_hangman_scores from anon, authenticated;
@@ -40,8 +46,8 @@ security definer
 set search_path = public
 as $$
 begin
-  if p_attempts < 1 or p_attempts > 100 then
-    raise exception 'Attempts must be between 1 and 100';
+  if p_attempts < 1 or p_attempts > 26 then
+    raise exception 'Attempts must be between 1 and 26';
   end if;
 
   if char_length(p_nickname) < 5 or char_length(p_nickname) > 40

@@ -842,9 +842,10 @@ body {
 
 .terminal-game-pane { overflow-y: auto; background: #000; }
 .terminal-leaderboard { overflow-y: auto; border-left: 1px solid #242424; background: #050505; }
-.terminal-command { margin: 0 0 .65rem; font-size: clamp(.65rem, .92vw, .76rem); }
+.terminal-command { margin: 0 0 .65rem; overflow: hidden; font-size: clamp(.58rem, .8vw, .7rem); letter-spacing: -.025em; white-space: nowrap; }
 .terminal-user, .terminal-host, .terminal-path { color: #25c3a7; font-weight: 700; }
 .terminal-at { color: #f2f4f3; }
+.terminal-exec { color: #fff; }
 
 .terminal-stats {
   display: grid;
@@ -865,17 +866,17 @@ body {
 .mask-token {
   min-width: 0;
   padding: .5rem .06rem;
-  border: 1px solid #475254;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
-  background: #293031;
-  color: #29c7ab;
+  background: #fff;
+  color: #111;
   font-size: clamp(.4rem, .72vw, .62rem);
   text-align: center;
   white-space: nowrap;
-  transition: color .25s ease, background .25s ease, transform .25s ease;
+  transition: color .25s ease, background .25s ease, border-color .25s ease, transform .25s ease;
 }
 
-.mask-token.is-revealed { background: #163e38; color: #eafff9; transform: translateY(-2px); }
+.mask-token.is-revealed { border-color: #2fc77a; background: #19a963; color: #fff; transform: translateY(-2px); }
 .mask-token.is-revealing { animation: token-denoise .48s cubic-bezier(.2, .8, .2, 1) both; }
 
 @keyframes token-denoise {
@@ -956,6 +957,8 @@ body {
   .mask-token { padding: .34rem 0; font-size: clamp(8px, 2.3vw, 10px); }
   .terminal-output { margin: .34rem 0; font-size: 11px; }
   .terminal-guess-form { margin: .32rem 0 .38rem; font-size: 11px; }
+  .terminal-guess-form input { font-size: 16px; line-height: 1.2; }
+  .terminal-command { font-size: 9px; letter-spacing: -.055em; }
   .terminal-history { margin-top: .36rem; font-size: 10px; }
   .leaderboard-heading { margin-bottom: .42rem; padding-bottom: .35rem; }
   .leaderboard-heading h3 { font-size: 11px; }
