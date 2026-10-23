@@ -36,8 +36,6 @@
     output: root.querySelector("[data-game-output]"),
     form: root.querySelector("[data-guess-form]"),
     input: root.querySelector("[data-guess-input]"),
-    restartForm: root.querySelector("[data-restart-form]"),
-    restartInput: root.querySelector("[data-restart-input]"),
     used: root.querySelector("[data-game-used]"),
     leaderboard: root.querySelector("[data-leaderboard-list]")
   };
@@ -162,7 +160,6 @@
       submitted: false
     });
     elements.input.value = "";
-    elements.restartInput.value = "";
     renderState();
     setOutput(`Daily sample restarted: ${word.length} masked tokens.`, "success");
     elements.input.focus({ preventScroll: true });
@@ -348,15 +345,6 @@
   elements.form.addEventListener("submit", (event) => {
     event.preventDefault();
     processGuess(elements.input.value);
-  });
-
-  elements.restartForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    if (elements.restartInput.value.trim().toUpperCase() === "RESTART") {
-      restartGame();
-    } else {
-      elements.restartInput.value = "";
-    }
   });
 
   renderState();

@@ -856,9 +856,6 @@ body {
 .bsod-details { font-size: clamp(.66rem, 1vw, .9rem); line-height: 1.55; }
 .bsod-details p { margin: .18rem 0; }
 .bsod-details strong { color: #fff; font-weight: 600; }
-.bsod-restart-form { max-width: 520px; margin-top: 1.25rem; }
-.bsod-restart-form input { border-bottom-color: rgba(255, 255, 255, .72); }
-.bsod-restart-form button { border-color: #fff; color: #fff; }
 
 .celebration-rain {
   position: fixed;
@@ -1018,7 +1015,6 @@ body {
     line-height: 1.2;
     touch-action: manipulation;
   }
-  .bsod-restart-form { margin-top: .9rem; }
   .terminal-command {
     width: 182%;
     margin-bottom: .12rem;

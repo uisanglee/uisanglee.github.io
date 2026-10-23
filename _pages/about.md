@@ -158,15 +158,9 @@ redirect_from:
             <p class="bsod-message">Your denoising process ran into a problem and reached the noise limit.</p>
             <p class="bsod-progress">100% complete</p>
             <div class="bsod-details">
-              <p>Enter RESTART below to reboot today's sample.</p>
               <p>Stop code: DIFFUSION_NOISE_LIMIT</p>
               <p>Masked word: <strong data-game-failed-word>UNKNOWN</strong></p>
             </div>
-            <form class="terminal-guess-form bsod-restart-form" data-restart-form autocomplete="off">
-              <label for="diffusion-restart"><span>Guess</span><span aria-hidden="true"> &gt; </span></label>
-              <input id="diffusion-restart" data-restart-input type="text" inputmode="text" maxlength="10" pattern="[A-Za-z]+" aria-label="Type RESTART to play again">
-              <button type="submit">RUN</button>
-            </form>
           </div>
         </section>
       </section>
