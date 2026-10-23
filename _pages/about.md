@@ -112,7 +112,7 @@ redirect_from:
     <section class="profile-contact contact-stage glass-section" id="contact" aria-labelledby="contact-heading">
       <div class="contact-card">
         <h2 id="contact-heading">Contact</h2>
-        <p><a href="mailto:uisang.lee@snu.ac.kr">uisang.lee@snu.ac.kr</a><span aria-hidden="true"> · </span><a href="mailto:dmltkdzlem@naver.com">dmltkdzlem@naver.com</a></p>
+        <p>email : <a href="mailto:uisang.lee@snu.ac.kr">uisang.lee@snu.ac.kr</a><span aria-hidden="true"> · </span><a href="mailto:dmltkdzlem@naver.com">dmltkdzlem@naver.com</a></p>
       </div>
 
       <section class="diffusion-terminal" aria-labelledby="diffusion-game-title">
