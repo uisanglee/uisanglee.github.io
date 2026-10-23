@@ -8,6 +8,10 @@
   let navigationTargetId = null;
   let activeSectionId = null;
   let brandSwapTimer = null;
+  let motionFrame = 0;
+  const motionState = new Map();
+
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
   function finishNavigationScroll() {
     navigationTargetId = null;
@@ -72,15 +76,69 @@
       if (section && getSectionTop(id) <= position) currentId = id;
     });
     setActiveSection(currentId);
+    updateVisualStack();
+    requestMotion();
+  }
+
+  function updateVisualStack() {
+    const pinTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--section-pin-top")) || 0;
+    let frontIndex = 0;
+    sectionIds.forEach((id, index) => {
+      const naturalTop = getSectionTop(id) - window.scrollY;
+      const transitionStart = getTransitionStart(index, pinTop);
+      if (naturalTop < transitionStart - 1) frontIndex = index;
+      document.getElementById(id)?.classList.toggle("is-waiting", index > 0 && naturalTop >= transitionStart);
+    });
+    sectionIds.forEach((id, index) => {
+      document.getElementById(id)?.classList.toggle("is-past", index < frontIndex);
+    });
+  }
+
+  function getTransitionStart(index, pinTop) {
+    const previous = document.getElementById(sectionIds[index - 1]);
+    return previous?.offsetHeight > window.innerHeight * 1.15
+      ? pinTop + 160
+      : window.innerHeight;
+  }
+
+  function renderMotion() {
+    motionFrame = 0;
+    if (reduceMotion.matches) return;
+    const pinTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--section-pin-top")) || 0;
+    let unsettled = false;
+
+    sectionIds.slice(1).forEach((id, offsetIndex) => {
+      const card = document.getElementById(id);
+      if (!card) return;
+      const transitionStart = getTransitionStart(offsetIndex + 1, pinTop);
+      const travel = Math.max(1, transitionStart - pinTop);
+      const naturalTop = getSectionTop(id) - window.scrollY;
+      const progress = clamp((transitionStart - naturalTop) / travel, 0, 1);
+      const remaining = 1 - progress;
+      const target = progress > 0 && progress < 1
+        ? (pinTop - naturalTop) * (1 - remaining ** 32)
+        : 0;
+      const state = motionState.get(id) || { offset: target, velocity: 0 };
+      state.velocity = (state.velocity + (target - state.offset) * .35) * .74;
+      state.offset += state.velocity;
+      motionState.set(id, state);
+
+      card.style.setProperty("--sticky-translate", `${state.offset.toFixed(2)}px`);
+      card.style.setProperty("--sticky-scale", (1 - Math.min(.017, Math.abs(state.offset) / 10000)).toFixed(4));
+      if (Math.abs(target - state.offset) > .15 || Math.abs(state.velocity) > .15) unsettled = true;
+    });
+
+    if (unsettled) requestMotion();
+  }
+
+  function requestMotion() {
+    if (!motionFrame && !reduceMotion.matches) motionFrame = window.requestAnimationFrame(renderMotion);
   }
 
   function setActiveSection(id) {
     if (!sectionIds.includes(id) || id === activeSectionId) return;
     const previousSectionId = activeSectionId;
     activeSectionId = id;
-    sectionIds.forEach((sectionId, index) => {
-      document.getElementById(sectionId)?.classList.toggle("is-past", index < sectionIds.indexOf(id));
-    });
     document.querySelectorAll(".masthead__menu-item").forEach((item) => item.classList.remove("selected"));
     document.querySelector(`.masthead__menu-item:not(.masthead__menu-item--lg) a[data-section-link="${id}"]`)?.closest(".masthead__menu-item")?.classList.add("selected");
 
@@ -121,11 +179,11 @@
     const animationId = ++scrollAnimationId;
 
     if (reduceMotion.matches) {
-      window.scrollTo(0, targetY);
+      window.scrollTo({ top: targetY, behavior: "instant" });
       finishNavigationScroll();
     } else {
       navigationTargetId = id;
-      const duration = Math.min(900, Math.max(500, 430 + Math.abs(distance) * .085));
+      const duration = Math.min(760, Math.max(480, 420 + Math.abs(distance) * .075));
       const startedAt = performance.now();
       const easeInOutCubic = (progress) => progress < .5
         ? 4 * progress ** 3
@@ -134,7 +192,7 @@
       const animate = (now) => {
         if (animationId !== scrollAnimationId) return;
         const progress = Math.min(1, (now - startedAt) / duration);
-        window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+        window.scrollTo({ top: startY + distance * easeInOutCubic(progress), behavior: "instant" });
         if (progress < 1) {
           window.requestAnimationFrame(animate);
         } else {
@@ -162,6 +220,7 @@
   });
 
   window.requestAnimationFrame(() => {
+    document.documentElement.style.scrollBehavior = "auto";
     enforceMobileNavigation();
     updatePinnedOffset();
     const initialId = sectionIds.includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : "home";
