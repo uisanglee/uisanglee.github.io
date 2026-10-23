@@ -691,6 +691,14 @@ body {
   position: relative;
 }
 
+.horizontal-ready .profile-home {
+  padding-top: 0;
+}
+
+@media (max-width: 600px) {
+  .horizontal-ready #main[role="main"] { margin-top: 0; }
+}
+
 .horizontal-ready .profile-shell {
   position: sticky;
   top: var(--section-pin-top, 6.75rem);
@@ -704,6 +712,7 @@ body {
   width: max-content;
   height: 100%;
   gap: clamp(14px, 2vw, 30px);
+  transition: transform .72s cubic-bezier(.22, 1, .36, 1);
   will-change: transform;
 }
 
@@ -734,6 +743,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .brand-roulette { animation: none !important; }
+  .horizontal-ready .horizontal-track { transition: none; }
 }
 
 .one-page-section {

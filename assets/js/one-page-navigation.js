@@ -104,9 +104,10 @@
   function render() {
     renderFrame = 0;
     const progress = clamp((window.scrollY - scrollStart) / Math.max(1, slideDistance), 0, sectionIds.length - 1);
-    const visibleIndex = Math.round(progress);
-    const visualProgress = reduceMotion.matches ? visibleIndex : progress;
-    track.style.transform = `translate3d(${-visualProgress * panelStride}px, 0, 0)`;
+    const visibleIndex = navigationTargetId
+      ? sectionIds.indexOf(navigationTargetId)
+      : clamp(Math.floor(progress + .25), 0, sectionIds.length - 1);
+    track.style.transform = `translate3d(${-visibleIndex * panelStride}px, 0, 0)`;
     sectionIds.forEach((id, index) => {
       document.getElementById(id).inert = index !== visibleIndex;
     });
