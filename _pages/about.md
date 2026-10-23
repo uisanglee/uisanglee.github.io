@@ -117,9 +117,13 @@ redirect_from:
 
       <section class="diffusion-terminal" aria-labelledby="diffusion-game-title">
         <header class="terminal-titlebar">
-          <span class="terminal-window-mark" aria-hidden="true">›_</span>
+          <span class="terminal-traffic-lights" aria-hidden="true">
+            <i class="terminal-dot terminal-dot-red"></i>
+            <i class="terminal-dot terminal-dot-yellow"></i>
+            <i class="terminal-dot terminal-dot-green"></i>
+          </span>
           <span id="diffusion-game-title">diffusion-hangman — Konsole</span>
-          <span class="terminal-window-controls" aria-hidden="true">− ◻ ×</span>
+          <span class="terminal-titlebar-spacer" aria-hidden="true"></span>
         </header>
         <div class="terminal-menubar" aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</div>
         <div class="terminal-screen">
