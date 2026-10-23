@@ -898,6 +898,14 @@ body {
 .terminal-at { color: #f2f4f3; }
 .terminal-exec { color: #fff; }
 
+@media (min-width: 721px) and (max-width: 1280px) {
+  .terminal-command,
+  .terminal-command > span { font-size: 8px !important; }
+  .terminal-command .terminal-user,
+  .terminal-command .terminal-host,
+  .terminal-command .terminal-path { font-weight: 600; }
+}
+
 .terminal-stats {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
