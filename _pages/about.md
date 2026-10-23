@@ -127,7 +127,7 @@ redirect_from:
         </header>
         <div class="terminal-menubar">
           <span aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</span>
-          <button class="terminal-restart" type="button" data-game-reset>Restart game</button>
+          <a class="terminal-restart" href="/?reset-game=1#contact">Restart game</a>
         </div>
         <div class="terminal-screen">
           <div class="terminal-game-pane">
