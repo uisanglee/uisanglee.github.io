@@ -53,6 +53,7 @@
 
   function measure() {
     enforceMobileNavigation();
+    stage.scrollLeft = 0;
     const mastheadHeight = document.querySelector(".masthead")?.offsetHeight || 0;
     const gap = window.matchMedia("(max-width: 760px)").matches ? 12 : 22;
     const pinTop = mastheadHeight + gap;
@@ -126,6 +127,7 @@
   function scrollToSection(id, updateHistory) {
     const index = sectionIds.indexOf(id);
     if (index < 0) return;
+    stage.scrollLeft = 0;
     if (id === "cv") document.getElementById("cv").scrollTop = 0;
     const startY = window.scrollY;
     const targetY = index === 0 ? 0 : scrollStart + index * slideDistance;

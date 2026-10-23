@@ -109,9 +109,49 @@ redirect_from:
       </div>
     </section>
 
-    <section class="profile-contact glass-section" id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Contact</h2>
-      <p><a href="mailto:uisang.lee@snu.ac.kr">uisang.lee@snu.ac.kr</a><br><a href="mailto:dmltkdzlem@naver.com">dmltkdzlem@naver.com</a></p>
+    <section class="profile-contact contact-stage glass-section" id="contact" aria-labelledby="contact-heading">
+      <div class="contact-card">
+        <h2 id="contact-heading">Contact</h2>
+        <p><a href="mailto:uisang.lee@snu.ac.kr">uisang.lee@snu.ac.kr</a><span aria-hidden="true"> · </span><a href="mailto:dmltkdzlem@naver.com">dmltkdzlem@naver.com</a></p>
+      </div>
+
+      <section class="diffusion-terminal" aria-labelledby="diffusion-game-title">
+        <header class="terminal-titlebar">
+          <span class="terminal-window-mark" aria-hidden="true">›_</span>
+          <span id="diffusion-game-title">diffusion-hangman — Konsole</span>
+          <span class="terminal-window-controls" aria-hidden="true">− ◻ ×</span>
+        </header>
+        <div class="terminal-menubar" aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</div>
+        <div class="terminal-screen">
+          <div class="terminal-game-pane">
+            <p class="terminal-command"><span class="terminal-user" data-game-nickname>visitor</span><span class="terminal-at">@</span><span class="terminal-host">diffusion</span>:<span class="terminal-path">~</span>$ denoise --daily</p>
+            <div class="terminal-stats" aria-label="Daily game information">
+              <span>DATE <strong data-game-date>----</strong></span>
+              <span>DEVICE <strong data-game-device>----</strong></span>
+              <span>ATTEMPTS <strong><span data-game-attempts>00</span> / 100</strong></span>
+              <span>STATUS <strong data-game-status>INITIALIZING</strong></span>
+            </div>
+            <div class="mask-token-grid" data-mask-grid aria-label="Masked daily word"></div>
+            <p class="terminal-output" data-game-output aria-live="polite">Loading today's masked word…</p>
+            <form class="terminal-guess-form" data-guess-form autocomplete="off">
+              <label for="diffusion-guess"><span class="terminal-user">guess</span><span aria-hidden="true"> &gt; </span></label>
+              <input id="diffusion-guess" data-guess-input type="text" inputmode="text" maxlength="10" pattern="[A-Za-z]+" aria-label="Guess a letter or the whole word">
+              <button type="submit">RUN</button>
+            </form>
+            <div class="terminal-keyboard" data-game-keyboard aria-label="Letter keyboard"></div>
+            <p class="terminal-history">USED <span data-game-used>—</span></p>
+          </div>
+          <aside class="terminal-leaderboard" aria-labelledby="leaderboard-title">
+            <div class="leaderboard-heading">
+              <h3 id="leaderboard-title">TODAY'S LEADERBOARD</h3>
+              <span>fewest guesses wins</span>
+            </div>
+            <ol data-leaderboard-list>
+              <li class="leaderboard-loading">Synchronizing…</li>
+            </ol>
+          </aside>
+        </div>
+      </section>
     </section>
 </div>
 </div>
