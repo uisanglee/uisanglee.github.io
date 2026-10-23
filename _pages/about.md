@@ -129,6 +129,7 @@ redirect_from:
         <div class="terminal-screen">
           <div class="terminal-game-pane">
             <p class="terminal-command"><span class="terminal-user" data-game-nickname>visitor</span><span class="terminal-at">@</span><span class="terminal-host">uisanglee.github.io</span>:<span class="terminal-path">~</span>$ <span class="terminal-exec">python diffusion.py --daily</span></p>
+            <p class="terminal-description">[INFO] Denoise today's masked word by guessing letters or the full word within 10 attempts.</p>
             <div class="terminal-stats" aria-label="Daily game information">
               <span>DATE <strong data-game-date>----</strong></span>
               <span class="attempt-meter">ATTEMPTS <strong><span data-game-progress aria-hidden="true">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span> <span data-game-attempts>0/10</span></strong></span>

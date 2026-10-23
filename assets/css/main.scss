@@ -897,6 +897,12 @@ body {
 .terminal-user, .terminal-host, .terminal-path { color: #25c3a7; font-weight: 700; }
 .terminal-at { color: #f2f4f3; }
 .terminal-exec { color: #fff; }
+.terminal-description {
+  margin: -.15rem 0 .55rem;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.45;
+}
 
 @media (min-width: 721px) and (max-width: 1280px) {
   .terminal-command,
@@ -1016,6 +1022,7 @@ body {
   .terminal-dot { width: 9px; height: 9px; }
   .terminal-titlebar-spacer { width: 37px; }
   .terminal-command { margin-bottom: .42rem; font-size: 12px; }
+  .terminal-description { margin: -.08rem 0 .42rem; font-size: 9px; }
   .terminal-stats { gap: .1rem .4rem; margin-bottom: .45rem; font-size: 9px; }
   .mask-token-grid { margin: .42rem 0; }
   .mask-token { padding: .34rem 0; font-size: clamp(8px, 2.3vw, 10px); }
