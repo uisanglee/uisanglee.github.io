@@ -361,9 +361,7 @@
 }
 
 .ai4code-interest {
-  display: flex;
-  align-items: center;
-  gap: .48rem;
+  display: list-item;
 }
 
 .ai4code-icons {
@@ -371,6 +369,8 @@
   align-items: center;
   gap: .28rem;
   height: 1.45em;
+  margin-left: .48rem;
+  vertical-align: middle;
 }
 
 .ai4code-icons img {
