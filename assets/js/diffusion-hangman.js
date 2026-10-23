@@ -47,6 +47,9 @@
     },
     set(key, value) {
       try { window.localStorage.setItem(key, value); } catch (_) { /* Private browsing fallback. */ }
+    },
+    remove(key) {
+      try { window.localStorage.removeItem(key); } catch (_) { /* Private browsing fallback. */ }
     }
   };
 
@@ -89,6 +92,12 @@
   const identity = getIdentity();
   const word = WORDS[hashText(`uisang-diffusion-${today}`) % WORDS.length].toUpperCase();
   const stateKey = `diffusionHangman:${today}`;
+  const resetRequested = new URLSearchParams(window.location.search).get("reset-game") === "1";
+  if (resetRequested) {
+    storage.remove(stateKey);
+    const cleanUrl = `${window.location.pathname}${window.location.hash}`;
+    window.history.replaceState({}, "", cleanUrl);
+  }
   const savedState = (() => {
     try { return JSON.parse(storage.get(stateKey) || "null"); } catch (_) { return null; }
   })();
