@@ -36,6 +36,8 @@
     output: root.querySelector("[data-game-output]"),
     form: root.querySelector("[data-guess-form]"),
     input: root.querySelector("[data-guess-input]"),
+    restartForm: root.querySelector("[data-restart-form]"),
+    restartInput: root.querySelector("[data-restart-input]"),
     used: root.querySelector("[data-game-used]"),
     leaderboard: root.querySelector("[data-leaderboard-list]")
   };
@@ -124,6 +126,48 @@
     elements.output.classList.toggle("is-success", type === "success");
   }
 
+  let celebrationTimer;
+
+  function runCelebration() {
+    window.clearTimeout(celebrationTimer);
+    document.querySelector(".celebration-rain")?.remove();
+    const rain = document.createElement("div");
+    rain.className = "celebration-rain";
+    rain.setAttribute("aria-hidden", "true");
+
+    for (let index = 0; index < 48; index += 1) {
+      const particle = document.createElement("span");
+      particle.textContent = "🎉";
+      particle.style.setProperty("--rain-x", `${Math.random() * 100}vw`);
+      particle.style.setProperty("--rain-drift", `${-70 + Math.random() * 140}px`);
+      particle.style.setProperty("--rain-delay", `${Math.random() * 1.25}s`);
+      particle.style.setProperty("--rain-duration", `${2.25 + Math.random() * 1.15}s`);
+      particle.style.setProperty("--rain-size", `${18 + Math.random() * 18}px`);
+      particle.style.setProperty("--rain-spin", `${-540 + Math.random() * 1080}deg`);
+      rain.appendChild(particle);
+    }
+
+    document.body.appendChild(rain);
+    celebrationTimer = window.setTimeout(() => rain.remove(), 4800);
+  }
+
+  function restartGame() {
+    storage.remove(stateKey);
+    Object.assign(state, {
+      word,
+      attempts: 0,
+      letters: [],
+      wordGuesses: [],
+      solved: false,
+      submitted: false
+    });
+    elements.input.value = "";
+    elements.restartInput.value = "";
+    renderState();
+    setOutput(`Daily sample restarted: ${word.length} masked tokens.`, "success");
+    elements.input.focus({ preventScroll: true });
+  }
+
   function renderTokens(animatedIndices) {
     const animated = new Set(animatedIndices || []);
     elements.grid.style.setProperty("--token-count", word.length);
@@ -156,7 +200,7 @@
     elements.bsod.setAttribute("aria-hidden", String(!crashed));
     elements.failedWord.textContent = crashed ? word : "UNKNOWN";
     elements.used.textContent = state.letters.length ? state.letters.join(" ") : "—";
-    elements.input.disabled = state.solved || state.attempts >= MAX_ATTEMPTS;
+    elements.input.disabled = false;
     renderTokens(animatedIndices);
   }
 
@@ -236,8 +280,25 @@
   }
 
   function processGuess(rawGuess) {
-    if (state.solved || state.attempts >= MAX_ATTEMPTS) return;
     const guess = String(rawGuess || "").trim().toUpperCase();
+
+    if (guess === "RESTART") {
+      restartGame();
+      return;
+    }
+
+    if (guess === "UISANGLEE") {
+      elements.input.value = "";
+      runCelebration();
+      setOutput("EASTER EGG unlocked. Celebration process started.", "success");
+      return;
+    }
+
+    if (state.solved || state.attempts >= MAX_ATTEMPTS) {
+      setOutput("Enter RESTART to load today's sample again.", "error");
+      return;
+    }
+
     if (!/^[A-Z]+$/.test(guess)) {
       setOutput("Enter letters A–Z only.", "error");
       return;
@@ -287,6 +348,15 @@
   elements.form.addEventListener("submit", (event) => {
     event.preventDefault();
     processGuess(elements.input.value);
+  });
+
+  elements.restartForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (elements.restartInput.value.trim().toUpperCase() === "RESTART") {
+      restartGame();
+    } else {
+      elements.restartInput.value = "";
+    }
   });
 
   renderState();

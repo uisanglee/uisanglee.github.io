@@ -125,10 +125,7 @@ redirect_from:
           <span id="diffusion-game-title">diffusion-hangman — Konsole</span>
           <span class="terminal-titlebar-spacer" aria-hidden="true"></span>
         </header>
-        <div class="terminal-menubar">
-          <span aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</span>
-          <a class="terminal-restart" href="/?reset-game=1#contact">Restart game</a>
-        </div>
+        <div class="terminal-menubar" aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</div>
         <div class="terminal-screen">
           <div class="terminal-game-pane">
             <p class="terminal-command"><span class="terminal-user" data-game-nickname>visitor</span><span class="terminal-at">@</span><span class="terminal-host">uisanglee.github.io</span>:<span class="terminal-path">~</span>$ <span class="terminal-exec">python diffusion.py --daily</span></p>
@@ -161,10 +158,15 @@ redirect_from:
             <p class="bsod-message">Your denoising process ran into a problem and reached the noise limit.</p>
             <p class="bsod-progress">100% complete</p>
             <div class="bsod-details">
-              <p>Please wait for the next daily sample to restart.</p>
+              <p>Enter RESTART below to reboot today's sample.</p>
               <p>Stop code: DIFFUSION_NOISE_LIMIT</p>
               <p>Masked word: <strong data-game-failed-word>UNKNOWN</strong></p>
             </div>
+            <form class="terminal-guess-form bsod-restart-form" data-restart-form autocomplete="off">
+              <label for="diffusion-restart"><span>Guess</span><span aria-hidden="true"> &gt; </span></label>
+              <input id="diffusion-restart" data-restart-input type="text" inputmode="text" maxlength="10" pattern="[A-Za-z]+" aria-label="Type RESTART to play again">
+              <button type="submit">RUN</button>
+            </form>
           </div>
         </section>
       </section>
