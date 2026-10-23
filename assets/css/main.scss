@@ -282,12 +282,12 @@
   width: 2.6rem;
   height: 2.6rem;
   place-items: center;
-  color: #2864ff;
+  color: #000;
   font-size: 2rem;
   transition: transform .18s ease, color .18s ease;
 }
 
-.profile-social a:hover { color: #1748c9; transform: translateY(-2px); }
+.profile-social a:hover { color: #000; transform: translateY(-2px); }
 
 .profile-content {
   min-width: 0;

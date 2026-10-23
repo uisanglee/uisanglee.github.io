@@ -18,7 +18,7 @@ redirect_from:
     <nav class="profile-social" aria-label="External profiles and contact">
       <a href="mailto:uisang.lee@snu.ac.kr" aria-label="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>
       <a href="https://scholar.google.com/citations?user=uHxEGyIAAAAJ" aria-label="Google Scholar" target="_blank" rel="noopener"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></a>
-      <a href="https://github.com/uisanglee" aria-label="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+      <a href="https://www.linkedin.com/in/uisang-lee" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
     </nav>
     </aside>
 
