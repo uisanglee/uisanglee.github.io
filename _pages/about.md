@@ -8,6 +8,7 @@ redirect_from:
 ---
 
 <div class="profile-shell">
+  <span class="section-anchor" data-section-anchor="home" aria-hidden="true"></span>
   <section class="home-section glass-section" id="home" aria-label="Home">
     <aside class="profile-identity" aria-label="Profile">
     <img class="profile-portrait" src="{{ '/images/uisang-lee-profile-2026.jpg' | relative_url }}" alt="Portrait of Uisang Lee">
@@ -48,6 +49,7 @@ redirect_from:
     </div>
   </section>
 
+    <span class="section-anchor" data-section-anchor="publications" aria-hidden="true"></span>
     <section class="one-page-section publications-section glass-section" id="publications" aria-labelledby="publications-heading">
       <p class="section-kicker">Research output</p>
       <h2 id="publications-heading">Publications</h2>
@@ -61,6 +63,7 @@ redirect_from:
       </article>
     </section>
 
+    <span class="section-anchor" data-section-anchor="cv" aria-hidden="true"></span>
     <section class="one-page-section cv-section glass-section" id="cv" aria-labelledby="cv-heading">
       <p class="section-kicker">Curriculum Vitae</p>
       <h2 id="cv-heading">CV</h2>
@@ -107,6 +110,7 @@ redirect_from:
       </div>
     </section>
 
+    <span class="section-anchor" data-section-anchor="contact" aria-hidden="true"></span>
     <section class="profile-contact glass-section" id="contact" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Contact</h2>
       <p><a href="mailto:uisang.lee@snu.ac.kr">uisang.lee@snu.ac.kr</a><br><a href="mailto:dmltkdzlem@naver.com">dmltkdzlem@naver.com</a></p>

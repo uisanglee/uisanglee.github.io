@@ -11,8 +11,7 @@
 
   function finishNavigationScroll() {
     navigationTargetId = null;
-    document.documentElement.classList.remove("is-section-scrolling");
-    window.dispatchEvent(new CustomEvent("section-scroll-finished"));
+    updateActiveSection();
   }
 
   function getDocumentTop(element) {
@@ -23,6 +22,11 @@
       current = current.offsetParent;
     }
     return top;
+  }
+
+  function getSectionTop(id) {
+    const anchor = document.querySelector(`[data-section-anchor="${id}"]`);
+    return anchor ? getDocumentTop(anchor) : getDocumentTop(document.getElementById(id));
   }
 
   function enforceMobileNavigation() {
@@ -46,10 +50,37 @@
     if (masthead) document.body.style.paddingTop = `${masthead.offsetHeight}px`;
   }
 
+  function updatePinnedOffset() {
+    const mastheadHeight = document.querySelector(".masthead")?.offsetHeight || 0;
+    const gap = window.matchMedia("(max-width: 760px)").matches ? 12 : 22;
+    const pinTop = mastheadHeight + gap;
+    document.documentElement.style.setProperty("--section-pin-top", `${pinTop}px`);
+    sectionIds.forEach((id) => {
+      const card = document.getElementById(id);
+      if (!card) return;
+      const cardTop = Math.min(pinTop, window.innerHeight - card.offsetHeight - 16);
+      card.style.setProperty("--card-pin-top", `${cardTop}px`);
+    });
+  }
+
+  function updateActiveSection() {
+    const pinTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--section-pin-top")) || 0;
+    const position = window.scrollY + pinTop + 2;
+    let currentId = "home";
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section && getSectionTop(id) <= position) currentId = id;
+    });
+    setActiveSection(currentId);
+  }
+
   function setActiveSection(id) {
     if (!sectionIds.includes(id) || id === activeSectionId) return;
     const previousSectionId = activeSectionId;
     activeSectionId = id;
+    sectionIds.forEach((sectionId, index) => {
+      document.getElementById(sectionId)?.classList.toggle("is-past", index < sectionIds.indexOf(id));
+    });
     document.querySelectorAll(".masthead__menu-item").forEach((item) => item.classList.remove("selected"));
     document.querySelector(`.masthead__menu-item:not(.masthead__menu-item--lg) a[data-section-link="${id}"]`)?.closest(".masthead__menu-item")?.classList.add("selected");
 
@@ -80,13 +111,12 @@
     const section = document.getElementById(id);
     if (!section) return;
 
-    const mastheadHeight = document.querySelector(".masthead")?.offsetHeight || 0;
-    const mobileLayout = window.matchMedia("(max-width: 760px)").matches;
-    const sectionGap = mobileLayout ? 12 : 22;
+    updatePinnedOffset();
+    const pinTop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--section-pin-top")) || 0;
     const startY = window.scrollY;
     const targetY = id === "home"
       ? 0
-      : Math.max(0, getDocumentTop(section) - mastheadHeight - sectionGap);
+      : Math.max(0, getSectionTop(id) - pinTop);
     const distance = targetY - startY;
     const animationId = ++scrollAnimationId;
 
@@ -95,7 +125,6 @@
       finishNavigationScroll();
     } else {
       navigationTargetId = id;
-      document.documentElement.classList.add("is-section-scrolling");
       const duration = Math.min(900, Math.max(500, 430 + Math.abs(distance) * .085));
       const startedAt = performance.now();
       const easeInOutCubic = (progress) => progress < .5
@@ -115,110 +144,8 @@
       window.requestAnimationFrame(animate);
     }
 
-    setActiveSection(id);
+    updateActiveSection();
     if (updateHistory) history.pushState({}, "", `#${id}`);
-  }
-
-  function prepareScrollAnimations() {
-    const elements = Array.from(document.querySelectorAll(".one-page-section, .profile-contact"));
-    if (reduceMotion.matches) return;
-
-    document.documentElement.classList.add("scroll-motion-ready");
-    let ranges = [];
-    let ticking = false;
-    let mobileMotion = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
-
-    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-    const interpolate = (from, to, progress) => from + (to - from) * progress;
-    const easeOutCubic = (progress) => 1 - (1 - progress) ** 3;
-
-    const measure = () => {
-      mobileMotion = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
-      elements.forEach((element) => element.style.removeProperty("--scroll-transform"));
-      ranges = elements.map((element) => {
-        const top = getDocumentTop(element);
-        return {
-          element,
-          start: top - window.innerHeight * (mobileMotion ? .98 : .9),
-          end: top - window.innerHeight * (mobileMotion ? .08 : .28),
-          exitStart: top + element.offsetHeight - window.innerHeight * (mobileMotion ? .5 : .4),
-          exitEnd: top + element.offsetHeight - window.innerHeight * (mobileMotion ? .02 : .08),
-          currentEnter: null,
-          currentExit: null,
-          enterVelocity: 0,
-          exitVelocity: 0
-        };
-      });
-      render();
-    };
-
-    const render = () => {
-      if (document.documentElement.classList.contains("is-section-scrolling")) {
-        ticking = false;
-        return;
-      }
-      const scrollTop = window.scrollY || window.pageYOffset;
-      let isSettling = false;
-      ranges.forEach((range) => {
-        const { element, start, end, exitStart, exitEnd } = range;
-        const rawProgress = clamp((scrollTop - start) / Math.max(1, end - start), 0, 1);
-        const rawExitProgress = element.classList.contains("profile-contact")
-          ? 0
-          : clamp((scrollTop - exitStart) / Math.max(1, exitEnd - exitStart), 0, 1);
-        const targetEnter = easeOutCubic(rawProgress);
-        const targetExit = rawExitProgress ** 2;
-
-        if (range.currentEnter === null) range.currentEnter = targetEnter;
-        if (range.currentExit === null) range.currentExit = targetExit;
-        if (mobileMotion) {
-          range.enterVelocity = (range.enterVelocity + (targetEnter - range.currentEnter) * .095) * .8;
-          range.exitVelocity = (range.exitVelocity + (targetExit - range.currentExit) * .085) * .8;
-          range.currentEnter += range.enterVelocity;
-          range.currentExit += range.exitVelocity;
-        } else {
-          range.currentEnter += (targetEnter - range.currentEnter) * .14;
-          range.currentExit += (targetExit - range.currentExit) * .11;
-        }
-
-        if (
-          Math.abs(targetEnter - range.currentEnter) > .001 ||
-          Math.abs(targetExit - range.currentExit) > .001 ||
-          Math.abs(range.enterVelocity) > .001 ||
-          Math.abs(range.exitVelocity) > .001
-        ) {
-          isSettling = true;
-        }
-
-        const enterProgress = clamp(range.currentEnter, 0, 1);
-        const exitProgress = clamp(range.currentExit, 0, 1);
-        const opacity = interpolate(.08, 1, enterProgress) * interpolate(1, .08, exitProgress);
-        const translateY = interpolate(mobileMotion ? 112 : 86, 0, enterProgress) + interpolate(0, mobileMotion ? -88 : -72, exitProgress);
-        const scale = interpolate(mobileMotion ? .95 : .968, 1, enterProgress) - exitProgress * (mobileMotion ? .024 : .018);
-        const maxBlur = mobileMotion ? 5 : 12;
-        const blur = Math.max(interpolate(maxBlur, 0, enterProgress), interpolate(0, mobileMotion ? 4 : 8, exitProgress));
-
-        element.style.setProperty("--scroll-opacity", opacity.toFixed(3));
-        element.style.setProperty("--scroll-transform", `translate3d(0, ${translateY.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`);
-        element.style.setProperty("--scroll-blur", `${blur.toFixed(2)}px`);
-      });
-      if (isSettling) {
-        window.requestAnimationFrame(render);
-      } else {
-        ticking = false;
-      }
-    };
-
-    const requestRender = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(render);
-    };
-
-    measure();
-    window.addEventListener("scroll", requestRender, { passive: true });
-    window.addEventListener("section-scroll-finished", measure);
-    window.addEventListener("resize", measure);
-    window.addEventListener("orientationchange", measure);
   }
 
   document.addEventListener("click", (event) => {
@@ -234,28 +161,18 @@
     scrollToSection(id, true);
   });
 
-  const observer = new IntersectionObserver((entries) => {
-    if (navigationTargetId) return;
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (visible) setActiveSection(visible.target.id);
-  }, { rootMargin: "-18% 0px -62%", threshold: [0, .15, .35, .6] });
-
-  sectionIds.forEach((id) => {
-    const section = document.getElementById(id);
-    if (section) observer.observe(section);
-  });
-
   window.requestAnimationFrame(() => {
     enforceMobileNavigation();
-    prepareScrollAnimations();
+    updatePinnedOffset();
     const initialId = sectionIds.includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : "home";
     setActiveSection(initialId);
     if (window.location.hash) {
       window.requestAnimationFrame(() => scrollToSection(initialId, false));
+    } else {
+      updateActiveSection();
     }
   });
+  window.addEventListener("scroll", updateActiveSection, { passive: true });
   ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
     window.addEventListener(eventName, () => {
       if (!navigationTargetId) return;
@@ -263,7 +180,13 @@
       finishNavigationScroll();
     }, { passive: true });
   });
-  window.addEventListener("resize", () => window.requestAnimationFrame(enforceMobileNavigation));
-  window.addEventListener("orientationchange", () => window.requestAnimationFrame(enforceMobileNavigation));
+  const refreshLayout = () => window.requestAnimationFrame(() => {
+    enforceMobileNavigation();
+    updatePinnedOffset();
+    updateActiveSection();
+  });
+  window.addEventListener("resize", refreshLayout);
+  window.addEventListener("orientationchange", refreshLayout);
+  window.addEventListener("load", refreshLayout);
   window.addEventListener("popstate", () => scrollToSection(window.location.hash.slice(1) || "home", false));
 })();

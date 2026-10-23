@@ -181,7 +181,12 @@
 
 .profile-shell {
   display: block;
-  padding-bottom: 65vh;
+  padding-bottom: calc(42vh + 4rem);
+}
+
+.section-anchor {
+  display: block;
+  height: 0;
 }
 
 .home-section {
@@ -679,38 +684,33 @@ body {
 .home-section,
 .one-page-section,
 .profile-contact {
-  scroll-margin-top: 6.75rem;
+  scroll-margin-top: var(--section-pin-top, 6.75rem);
 }
 
-.scroll-motion-ready .one-page-section,
-.scroll-motion-ready .profile-contact {
-  opacity: var(--scroll-opacity, 1);
-  filter: blur(var(--scroll-blur, 0));
-  transform: var(--scroll-transform, none);
-  transform-origin: 50% 35%;
-  backface-visibility: hidden;
-  will-change: opacity, filter, transform;
+.profile-shell > .glass-section {
+  position: sticky;
+  top: var(--card-pin-top, var(--section-pin-top, 6.75rem));
+  margin-top: 0;
+  margin-bottom: 62vh;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .91), rgba(255, 255, 255, .82)),
+    rgba(255, 255, 255, .84);
+  transition: opacity .2s ease;
 }
 
-/* Keep button-triggered travel on the compositor: intermediate panels do not
-   run blur/spring effects while the page is moving to the selected section. */
-.is-section-scrolling.scroll-motion-ready .one-page-section,
-.is-section-scrolling.scroll-motion-ready .profile-contact {
-  opacity: 1 !important;
-  filter: none !important;
-  transform: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+.profile-shell > .glass-section.is-past {
+  opacity: 0;
+  pointer-events: none;
 }
+
+.profile-shell > .home-section { z-index: 1; }
+.profile-shell > .publications-section { z-index: 2; }
+.profile-shell > .cv-section { z-index: 3; }
+.profile-shell > .profile-contact { z-index: 4; margin-bottom: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .brand-roulette { animation: none !important; }
-  .one-page-section,
-  .profile-contact {
-    opacity: 1 !important;
-    filter: none !important;
-    transform: none !important;
-  }
+  .profile-shell > .glass-section { transition: none; }
 }
 
 .one-page-section {
@@ -767,8 +767,10 @@ body {
 @media (max-width: 600px) {
   .home-section,
   .one-page-section,
-  .profile-contact { scroll-margin-top: 5.8rem; }
+  .profile-contact { scroll-margin-top: var(--section-pin-top, 5.8rem); }
   .glass-section { border-radius: 24px; }
+  .profile-shell > .glass-section { margin-bottom: 42vh; }
+  .profile-shell > .profile-contact { margin-bottom: 0; }
   .one-page-section { margin-top: clamp(4.5rem, 16vh, 8rem); padding: 1.5rem 1.15rem; }
   .one-page-section > h2 { font-size: 1.7rem; }
   .publication-card { padding: 1.15rem; }
