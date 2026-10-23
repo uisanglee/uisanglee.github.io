@@ -935,7 +935,7 @@ body {
   100% { opacity: 1; filter: blur(0); transform: translateY(-2px) scale(1); }
 }
 
-.terminal-output { min-height: 1.4em; margin: .5rem 0; color: #b8c2c1; font-size: .62rem; }
+.terminal-output { min-height: 1.4em; margin: .5rem 0; color: #b8c2c1; font-size: .58rem; }
 .terminal-output.is-error { color: #ff8f8f; }
 .terminal-output.is-success { color: #42e3b8; }
 .terminal-guess-form { display: flex; align-items: center; gap: .42rem; margin: .45rem 0 .6rem; font-size: .67rem; }
@@ -1011,7 +1011,7 @@ body {
   .terminal-stats { gap: .1rem .4rem; margin-bottom: .45rem; font-size: 9px; }
   .mask-token-grid { margin: .42rem 0; }
   .mask-token { padding: .34rem 0; font-size: clamp(8px, 2.3vw, 10px); }
-  .terminal-output { margin: .34rem 0; font-size: 11px; }
+  .terminal-output { margin: .34rem 0; font-size: 10px; }
   .terminal-guess-form { margin: .32rem 0 .38rem; font-size: 11px; }
   .terminal-guess-form input {
     font-size: 16px !important;
