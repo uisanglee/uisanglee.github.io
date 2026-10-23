@@ -893,7 +893,7 @@ body {
 
 .terminal-game-pane { overflow-y: auto; background: #000; }
 .terminal-leaderboard { overflow-y: auto; border-left: 1px solid #242424; background: #050505; }
-.terminal-command { margin: 0 0 .65rem; overflow: hidden; font-size: clamp(.58rem, .8vw, .7rem); letter-spacing: -.025em; white-space: nowrap; }
+.terminal-command { margin: 0 0 .65rem; overflow: hidden; font-size: 11px; letter-spacing: -.025em; white-space: nowrap; }
 .terminal-user, .terminal-host, .terminal-path { color: #25c3a7; font-weight: 700; }
 .terminal-at { color: #f2f4f3; }
 .terminal-exec { color: #fff; }
