@@ -907,7 +907,7 @@ body {
 .diffusion-terminal .terminal-description {
   margin: -.15rem 0 .55rem;
   color: #fff;
-  font-size: 10px;
+  font-size: 9px;
   line-height: 1.45;
 }
 
@@ -964,6 +964,12 @@ body {
   color: #fff;
   font: inherit;
   text-transform: uppercase;
+}
+.terminal-guess-form input::placeholder {
+  color: #8c9999;
+  opacity: 1;
+  font-size: 11px;
+  text-transform: none;
 }
 .terminal-guess-form input:focus { border-bottom-color: #2dd4bf; }
 .terminal-guess-form button {

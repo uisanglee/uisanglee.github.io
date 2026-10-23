@@ -138,7 +138,7 @@ redirect_from:
             <p class="terminal-output" data-game-output aria-live="polite">Loading today's masked word…</p>
             <form class="terminal-guess-form" data-guess-form autocomplete="off">
               <label for="diffusion-guess"><span class="terminal-user">Guess</span><span aria-hidden="true"> &gt; </span></label>
-              <input id="diffusion-guess" data-guess-input type="text" inputmode="text" maxlength="10" pattern="[A-Za-z]+" aria-label="Guess a letter or the whole word">
+              <input id="diffusion-guess" data-guess-input type="text" inputmode="text" maxlength="10" pattern="[A-Za-z]+" placeholder="Enter a letter or the full word" aria-label="Enter a letter or the full word">
               <button type="submit">RUN</button>
             </form>
             <p class="terminal-history">USED <span data-game-used>—</span></p>
