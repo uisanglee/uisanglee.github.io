@@ -360,6 +360,28 @@
   line-height: 1.65;
 }
 
+.ai4code-interest {
+  display: flex;
+  align-items: center;
+  gap: .48rem;
+}
+
+.ai4code-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: .28rem;
+  height: 1.45em;
+}
+
+.ai4code-icons img {
+  display: block;
+  width: 1.38em;
+  height: 1.38em;
+  border-radius: .12em;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
 /* Two LLM generation styles: randomized masked materialization vs. typed AR. */
 .interest-term { display: inline-block; white-space: nowrap; }
 
@@ -586,6 +608,7 @@
   .one-page-section > h2,
   .profile-contact h2 { font-size: 1.45rem; }
   .interest-list { font-size: .95rem; }
+  .ai4code-icons { gap: .22rem; }
 }
 
 /* Suppress the theme's orange click outline across the masthead. */
