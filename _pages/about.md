@@ -75,6 +75,7 @@ redirect_from:
         <section aria-labelledby="activities-heading">
           <h3 id="activities-heading">Research Activities</h3>
           <div class="cv-item"><strong>Graduate Researcher · VMO Laboratory</strong><span>Seoul National University · 2021–Present</span><small>LLM response generation, code reasoning, program analysis, and smart-contract vulnerability detection.</small></div>
+          <div class="cv-item"><strong>Strategic Industry–Academia Collaborative Researcher · Samsung Electronics, Memory Business DT Team</strong><span>September 2021–September 2025</span><small><em>Physical Test Bench Conversion Solution for Product Design Verification.</em> Developed symbolic representations for DRAM test-pattern programs to support product design verification.</small></div>
         </section>
 
         <section aria-labelledby="teaching-heading">
