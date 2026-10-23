@@ -935,7 +935,7 @@ body {
   100% { opacity: 1; filter: blur(0); transform: translateY(-2px) scale(1); }
 }
 
-.terminal-output { min-height: 1.4em; margin: .5rem 0; color: #b8c2c1; font-size: .58rem; }
+.terminal-output { min-height: 1.4em; margin: .5rem 0; color: #b8c2c1; font-size: 11px !important; }
 .terminal-output.is-error { color: #ff8f8f; }
 .terminal-output.is-success { color: #42e3b8; }
 .terminal-guess-form { display: flex; align-items: center; gap: .42rem; margin: .45rem 0 .6rem; font-size: .67rem; }
@@ -963,7 +963,7 @@ body {
   cursor: pointer;
 }
 
-.terminal-history { margin: .55rem 0 0; color: #7f8d8e; font-size: .58rem; }
+.terminal-history { margin: .55rem 0 0; color: #7f8d8e; font-size: 11px !important; }
 .terminal-history span { color: #d8dfde; }
 
 .leaderboard-heading { margin-bottom: .7rem; padding-bottom: .55rem; border-bottom: 1px dashed #485052; }
@@ -1011,7 +1011,7 @@ body {
   .terminal-stats { gap: .1rem .4rem; margin-bottom: .45rem; font-size: 9px; }
   .mask-token-grid { margin: .42rem 0; }
   .mask-token { padding: .34rem 0; font-size: clamp(8px, 2.3vw, 10px); }
-  .terminal-output { margin: .34rem 0; font-size: 10px; }
+  .terminal-output { margin: .34rem 0; font-size: 10px !important; }
   .terminal-guess-form { margin: .32rem 0 .38rem; font-size: 11px; }
   .terminal-guess-form input {
     font-size: 16px !important;
@@ -1027,7 +1027,7 @@ body {
     transform: scale(.55);
     transform-origin: left top;
   }
-  .terminal-history { margin-top: .36rem; font-size: 10px; }
+  .terminal-history { margin-top: .36rem; font-size: 10px !important; }
   .leaderboard-heading { margin-bottom: .42rem; padding-bottom: .35rem; }
   .leaderboard-heading h3 { font-size: 11px; }
   .leaderboard-heading span { font-size: 9px; }
