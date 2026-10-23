@@ -160,6 +160,95 @@
     if (updateHistory) history.pushState({}, "", `#${id}`);
   }
 
+  const cvSection = document.getElementById("cv");
+  if (cvSection) {
+    const edgeThreshold = 90;
+    let wheelDistance = 0;
+    let wheelDirection = 0;
+    let touchY = null;
+    let touchDistance = 0;
+    let touchDirection = 0;
+    let touchHandedOff = false;
+    let handoffLockedUntil = 0;
+
+    function edgeDirection(delta) {
+      if (activeSectionId !== "cv" || !delta) return 0;
+      const maxScroll = Math.max(0, cvSection.scrollHeight - cvSection.clientHeight);
+      if (delta > 0 && cvSection.scrollTop >= maxScroll - 2) return 1;
+      if (delta < 0 && cvSection.scrollTop <= 2) return -1;
+      return 0;
+    }
+
+    function handOff(direction) {
+      handoffLockedUntil = performance.now() + 850;
+      scrollToSection(direction > 0 ? "contact" : "publications", true);
+    }
+
+    cvSection.addEventListener("wheel", (event) => {
+      if (performance.now() < handoffLockedUntil || navigationTargetId) {
+        event.preventDefault();
+        return;
+      }
+      const multiplier = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? cvSection.clientHeight : 1;
+      const delta = event.deltaY * multiplier;
+      const direction = edgeDirection(delta);
+      if (!direction) {
+        wheelDistance = 0;
+        wheelDirection = 0;
+        return;
+      }
+
+      event.preventDefault();
+      if (wheelDirection !== direction) wheelDistance = 0;
+      wheelDirection = direction;
+      wheelDistance += Math.abs(delta);
+      if (wheelDistance >= edgeThreshold) {
+        wheelDistance = 0;
+        handOff(direction);
+      }
+    }, { passive: false });
+
+    cvSection.addEventListener("touchstart", (event) => {
+      touchY = event.touches[0]?.clientY ?? null;
+      touchDistance = 0;
+      touchDirection = 0;
+      touchHandedOff = false;
+    }, { passive: true });
+
+    cvSection.addEventListener("touchmove", (event) => {
+      if (touchY === null || touchHandedOff || !event.touches.length) return;
+      if (performance.now() < handoffLockedUntil || navigationTargetId) {
+        event.preventDefault();
+        return;
+      }
+      const nextY = event.touches[0].clientY;
+      const delta = touchY - nextY;
+      touchY = nextY;
+      const direction = edgeDirection(delta);
+      if (!direction) {
+        touchDistance = 0;
+        touchDirection = 0;
+        return;
+      }
+
+      event.preventDefault();
+      if (touchDirection !== direction) touchDistance = 0;
+      touchDirection = direction;
+      touchDistance += Math.abs(delta);
+      if (touchDistance >= edgeThreshold) {
+        touchHandedOff = true;
+        handOff(direction);
+      }
+    }, { passive: false });
+
+    ["touchend", "touchcancel"].forEach((name) => cvSection.addEventListener(name, () => {
+      touchY = null;
+      touchDistance = 0;
+      touchDirection = 0;
+      touchHandedOff = false;
+    }, { passive: true }));
+  }
+
   document.addEventListener("click", (event) => {
     const link = event.target.closest("a[data-section-link]");
     if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -183,8 +272,8 @@
   });
   window.addEventListener("scroll", requestRender, { passive: true });
   ["wheel", "touchstart", "pointerdown"].forEach((eventName) => {
-    window.addEventListener(eventName, () => {
-      if (!navigationTargetId) return;
+    window.addEventListener(eventName, (event) => {
+      if (!navigationTargetId || event.defaultPrevented) return;
       scrollAnimationId += 1;
       finishNavigationScroll();
     }, { passive: true });

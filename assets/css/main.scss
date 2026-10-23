@@ -732,6 +732,10 @@ body {
   scrollbar-width: thin;
 }
 
+.horizontal-ready #cv {
+  overscroll-behavior-y: contain;
+}
+
 @media (min-width: 901px) {
   .horizontal-ready .home-section { padding: 1.1rem 1.6rem .45rem; }
   .horizontal-ready .profile-portrait { width: min(100%, 300px); margin-bottom: 1rem; }
