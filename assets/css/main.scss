@@ -818,7 +818,7 @@ body {
 
 .terminal-game-pane { overflow-y: auto; }
 .terminal-leaderboard { overflow-y: auto; border-left: 1px solid #3a4143; background: #1b1f20; }
-.terminal-command { margin: 0 0 .65rem; font-size: clamp(.69rem, 1vw, .84rem); }
+.terminal-command { margin: 0 0 .65rem; font-size: clamp(.65rem, .92vw, .76rem); }
 .terminal-user, .terminal-host, .terminal-path { color: #25c3a7; font-weight: 700; }
 .terminal-at { color: #f2f4f3; }
 
@@ -828,7 +828,7 @@ body {
   gap: .18rem 1rem;
   margin-bottom: .75rem;
   color: #8c9999;
-  font-size: clamp(.58rem, .9vw, .72rem);
+  font-size: clamp(.55rem, .82vw, .66rem);
 }
 
 .terminal-stats strong { color: #f3f6f5; font-weight: 500; }
@@ -845,7 +845,7 @@ body {
   border-radius: 4px;
   background: #293031;
   color: #29c7ab;
-  font-size: clamp(.42rem, .78vw, .68rem);
+  font-size: clamp(.4rem, .72vw, .62rem);
   text-align: center;
   white-space: nowrap;
   transition: color .25s ease, background .25s ease, transform .25s ease;
@@ -859,10 +859,10 @@ body {
   100% { opacity: 1; filter: blur(0); transform: translateY(-2px) scale(1); }
 }
 
-.terminal-output { min-height: 1.4em; margin: .5rem 0; color: #b8c2c1; font-size: .68rem; }
+.terminal-output { min-height: 1.4em; margin: .5rem 0; color: #b8c2c1; font-size: .62rem; }
 .terminal-output.is-error { color: #ff8f8f; }
 .terminal-output.is-success { color: #42e3b8; }
-.terminal-guess-form { display: flex; align-items: center; gap: .42rem; margin: .45rem 0 .6rem; font-size: .73rem; }
+.terminal-guess-form { display: flex; align-items: center; gap: .42rem; margin: .45rem 0 .6rem; font-size: .67rem; }
 .terminal-guess-form label { flex: 0 0 auto; }
 .terminal-guess-form input {
   width: 100%;
@@ -887,11 +887,11 @@ body {
   cursor: pointer;
 }
 
-.terminal-history { margin: .55rem 0 0; color: #7f8d8e; font-size: .62rem; }
+.terminal-history { margin: .55rem 0 0; color: #7f8d8e; font-size: .58rem; }
 .terminal-history span { color: #d8dfde; }
 
 .leaderboard-heading { margin-bottom: .7rem; padding-bottom: .55rem; border-bottom: 1px dashed #485052; }
-.leaderboard-heading h3 { margin: 0; color: #2dd4bf !important; font: 700 .75rem/1.3 "SFMono-Regular", Consolas, monospace; }
+.leaderboard-heading h3 { margin: 0; color: #2dd4bf !important; font: 700 .7rem/1.3 "SFMono-Regular", Consolas, monospace; }
 .leaderboard-heading span { color: #748182; font-size: .58rem; }
 .terminal-leaderboard ol { margin: 0; padding: 0; list-style: none; counter-reset: rank; }
 .terminal-leaderboard li {
@@ -900,7 +900,7 @@ body {
   gap: .35rem;
   padding: .28rem 0;
   color: #dce3e2;
-  font-size: .63rem;
+  font-size: .59rem;
   counter-increment: rank;
 }
 .terminal-leaderboard li::before { color: #667576; content: counter(rank, decimal-leading-zero); }
@@ -917,23 +917,23 @@ body {
   .contact-card p span { display: none; }
   .contact-card p a { display: inline-block; margin-right: .45rem; }
   .diffusion-terminal { min-height: 0; border-radius: 8px; }
-  .terminal-titlebar { min-height: 25px; padding: 0 .5rem; font-size: .58rem; }
-  .terminal-menubar { min-height: 20px; padding: .22rem .5rem; font-size: .52rem; }
+  .terminal-titlebar { min-height: 25px; padding: 0 .5rem; font-size: 10px; }
+  .terminal-menubar { min-height: 20px; padding: 4px .5rem; font-size: 9px; }
   .terminal-screen { grid-template-columns: 1fr; height: auto; }
   .terminal-game-pane { overflow: visible; }
   .terminal-game-pane, .terminal-leaderboard { padding: .58rem .68rem; }
   .terminal-leaderboard { min-height: 104px; border-top: 1px solid #3a4143; border-left: 0; }
-  .terminal-command { margin-bottom: .42rem; font-size: .55rem; }
-  .terminal-stats { gap: .1rem .4rem; margin-bottom: .45rem; font-size: .49rem; }
+  .terminal-command { margin-bottom: .42rem; font-size: 12px; }
+  .terminal-stats { gap: .1rem .4rem; margin-bottom: .45rem; font-size: 9px; }
   .mask-token-grid { margin: .42rem 0; }
-  .mask-token { padding: .34rem 0; font-size: clamp(.32rem, 1.55vw, .48rem); }
-  .terminal-output { margin: .34rem 0; font-size: .54rem; }
-  .terminal-guess-form { margin: .32rem 0 .38rem; font-size: .58rem; }
-  .terminal-history { margin-top: .36rem; font-size: .5rem; }
+  .mask-token { padding: .34rem 0; font-size: clamp(8px, 2.3vw, 10px); }
+  .terminal-output { margin: .34rem 0; font-size: 11px; }
+  .terminal-guess-form { margin: .32rem 0 .38rem; font-size: 11px; }
+  .terminal-history { margin-top: .36rem; font-size: 10px; }
   .leaderboard-heading { margin-bottom: .42rem; padding-bottom: .35rem; }
-  .leaderboard-heading h3 { font-size: .6rem; }
-  .leaderboard-heading span { font-size: .48rem; }
-  .terminal-leaderboard li { padding: .2rem 0; font-size: .52rem; }
+  .leaderboard-heading h3 { font-size: 11px; }
+  .leaderboard-heading span { font-size: 9px; }
+  .terminal-leaderboard li { padding: .2rem 0; font-size: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
