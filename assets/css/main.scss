@@ -781,8 +781,8 @@ body {
   box-shadow: 0 12px 32px rgba(17, 24, 39, .2);
   color: #f2f4f3;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 .terminal-titlebar,
