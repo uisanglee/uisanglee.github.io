@@ -125,7 +125,10 @@ redirect_from:
           <span id="diffusion-game-title">diffusion-hangman — Konsole</span>
           <span class="terminal-titlebar-spacer" aria-hidden="true"></span>
         </header>
-        <div class="terminal-menubar" aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</div>
+        <div class="terminal-menubar">
+          <span aria-hidden="true">Game&nbsp;&nbsp; Daily&nbsp;&nbsp; Leaderboard&nbsp;&nbsp; Help</span>
+          <button class="terminal-restart" type="button" data-game-reset>Restart game</button>
+        </div>
         <div class="terminal-screen">
           <div class="terminal-game-pane">
             <p class="terminal-command"><span class="terminal-user" data-game-nickname>visitor</span><span class="terminal-at">@</span><span class="terminal-host">uisanglee.github.io</span>:<span class="terminal-path">~</span>$ <span class="terminal-exec">python diffusion.py --daily</span></p>

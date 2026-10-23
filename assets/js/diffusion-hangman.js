@@ -36,6 +36,7 @@
     output: root.querySelector("[data-game-output]"),
     form: root.querySelector("[data-guess-form]"),
     input: root.querySelector("[data-guess-input]"),
+    reset: root.querySelector("[data-game-reset]"),
     used: root.querySelector("[data-game-used]"),
     leaderboard: root.querySelector("[data-leaderboard-list]")
   };
@@ -287,6 +288,22 @@
   elements.form.addEventListener("submit", (event) => {
     event.preventDefault();
     processGuess(elements.input.value);
+  });
+
+  elements.reset.addEventListener("click", () => {
+    storage.remove(stateKey);
+    Object.assign(state, {
+      word,
+      attempts: 0,
+      letters: [],
+      wordGuesses: [],
+      solved: false,
+      submitted: false
+    });
+    elements.input.value = "";
+    renderState();
+    setOutput(`Daily sample restarted: ${word.length} masked tokens.`, "success");
+    elements.input.focus({ preventScroll: true });
   });
 
   renderState();
