@@ -893,23 +893,22 @@ body {
 
 .terminal-game-pane { overflow-y: auto; background: #000; }
 .terminal-leaderboard { overflow-y: auto; border-left: 1px solid #242424; background: #050505; }
-.terminal-command { margin: 0 0 .65rem; overflow: hidden; font-size: 9px; letter-spacing: -.025em; white-space: nowrap; }
+.diffusion-terminal .terminal-command {
+  margin: 0 0 .65rem;
+  overflow: hidden;
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: -.025em;
+  white-space: nowrap;
+}
 .terminal-user, .terminal-host, .terminal-path { color: #25c3a7; font-weight: 700; }
 .terminal-at { color: #f2f4f3; }
 .terminal-exec { color: #fff; }
-.terminal-description {
+.diffusion-terminal .terminal-description {
   margin: -.15rem 0 .55rem;
   color: #fff;
   font-size: 10px;
   line-height: 1.45;
-}
-
-@media (min-width: 721px) and (max-width: 1280px) {
-  .terminal-command,
-  .terminal-command > span { font-size: 8px !important; }
-  .terminal-command .terminal-user,
-  .terminal-command .terminal-host,
-  .terminal-command .terminal-path { font-weight: 600; }
 }
 
 .terminal-stats {
@@ -1021,8 +1020,8 @@ body {
   .terminal-traffic-lights { gap: 5px; }
   .terminal-dot { width: 9px; height: 9px; }
   .terminal-titlebar-spacer { width: 37px; }
-  .terminal-command { margin-bottom: .42rem; font-size: 12px; }
-  .terminal-description { margin: -.08rem 0 .42rem; font-size: 9px; }
+  .diffusion-terminal .terminal-command { margin-bottom: .42rem; font-size: 16px; }
+  .diffusion-terminal .terminal-description { margin: -.08rem 0 .42rem; font-size: 9px; }
   .terminal-stats { gap: .1rem .4rem; margin-bottom: .45rem; font-size: 9px; }
   .mask-token-grid { margin: .42rem 0; }
   .mask-token { padding: .34rem 0; font-size: clamp(8px, 2.3vw, 10px); }
@@ -1033,10 +1032,9 @@ body {
     line-height: 1.2;
     touch-action: manipulation;
   }
-  .terminal-command {
+  .diffusion-terminal .terminal-command {
     width: 182%;
     margin-bottom: .12rem;
-    font-size: 9px;
     letter-spacing: -.055em;
     transform: scale(.55);
     transform-origin: left top;
